@@ -1,1 +1,1802 @@
-﻿[]
+﻿[
+    {
+        "tema": "ciencia",
+        "nivel": "basico",
+        "enunciado": "¿Cuál es el planeta más grande del sistema solar?",
+        "opciones": {
+            "A": "Marte",
+            "B": "Júpiter",
+            "C": "Saturno",
+            "D": "Neptuno"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "basico",
+        "enunciado": "¿Qué gas necesitan las plantas para realizar la fotosíntesis?",
+        "opciones": {
+            "A": "Oxígeno",
+            "B": "Nitrógeno",
+            "C": "Hidrógeno",
+            "D": "Dióxido de carbono"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "basico",
+        "enunciado": "¿A qué temperatura hierve el agua a nivel del mar?",
+        "opciones": {
+            "A": "100 °C",
+            "B": "50 °C",
+            "C": "90 °C",
+            "D": "150 °C"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "basico",
+        "enunciado": "¿Cuántos planetas tiene actualmente el sistema solar?",
+        "opciones": {
+            "A": "7",
+            "B": "9",
+            "C": "8",
+            "D": "10"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "basico",
+        "enunciado": "¿Qué órgano bombea la sangre por el cuerpo humano?",
+        "opciones": {
+            "A": "Pulmón",
+            "B": "Hígado",
+            "C": "Riñón",
+            "D": "Corazón"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "basico",
+        "enunciado": "¿Cuál es el hueso más largo del cuerpo humano?",
+        "opciones": {
+            "A": "Húmero",
+            "B": "Fémur",
+            "C": "Tibia",
+            "D": "Peroné"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "basico",
+        "enunciado": "¿Qué planeta es conocido como el planeta rojo?",
+        "opciones": {
+            "A": "Marte",
+            "B": "Venus",
+            "C": "Mercurio",
+            "D": "Júpiter"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "basico",
+        "enunciado": "¿Cuál es el símbolo químico del oro?",
+        "opciones": {
+            "A": "Ag",
+            "B": "Fe",
+            "C": "Au",
+            "D": "Or"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "basico",
+        "enunciado": "¿Qué astro es el centro de nuestro sistema solar?",
+        "opciones": {
+            "A": "La Luna",
+            "B": "El Sol",
+            "C": "La Tierra",
+            "D": "Júpiter"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "basico",
+        "enunciado": "¿Cuántos huesos tiene aproximadamente el cuerpo de un adulto?",
+        "opciones": {
+            "A": "106",
+            "B": "306",
+            "C": "406",
+            "D": "206"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "intermedio",
+        "enunciado": "¿Cuál es el gas más abundante en la atmósfera terrestre?",
+        "opciones": {
+            "A": "Oxígeno",
+            "B": "Argón",
+            "C": "Nitrógeno",
+            "D": "Dióxido de carbono"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué orgánulo celular produce la mayor parte de la energía (ATP) de la célula?",
+        "opciones": {
+            "A": "Mitocondria",
+            "B": "Núcleo",
+            "C": "Ribosoma",
+            "D": "Lisosoma"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "intermedio",
+        "enunciado": "¿Cuál es la velocidad aproximada de la luz en el vacío?",
+        "opciones": {
+            "A": "30.000 km/s",
+            "B": "3.000 km/s",
+            "C": "3.000.000 km/s",
+            "D": "300.000 km/s"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué científico formuló la ley de la gravitación universal?",
+        "opciones": {
+            "A": "Albert Einstein",
+            "B": "Isaac Newton",
+            "C": "Galileo Galilei",
+            "D": "Niels Bohr"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "intermedio",
+        "enunciado": "¿Cuál es el pH de una sustancia neutra, como el agua pura a 25 °C?",
+        "opciones": {
+            "A": "0",
+            "B": "14",
+            "C": "7",
+            "D": "10"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué grupo sanguíneo se considera donante universal de glóbulos rojos?",
+        "opciones": {
+            "A": "O-",
+            "B": "AB+",
+            "C": "A-",
+            "D": "B+"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué metal es líquido a temperatura ambiente?",
+        "opciones": {
+            "A": "Plomo",
+            "B": "Aluminio",
+            "C": "Estaño",
+            "D": "Mercurio"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "intermedio",
+        "enunciado": "¿Cómo se llama el proceso en el que una célula se divide en dos células hijas idénticas?",
+        "opciones": {
+            "A": "Meiosis",
+            "B": "Mitosis",
+            "C": "Fotosíntesis",
+            "D": "Ósmosis"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "intermedio",
+        "enunciado": "¿Cuál es la unidad de fuerza en el Sistema Internacional?",
+        "opciones": {
+            "A": "Newton",
+            "B": "Joule",
+            "C": "Pascal",
+            "D": "Watt"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué capa de la atmósfera contiene la mayor parte del ozono que nos protege de la radiación ultravioleta?",
+        "opciones": {
+            "A": "Troposfera",
+            "B": "Exosfera",
+            "C": "Estratosfera",
+            "D": "Termosfera"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué científico propuso en 1913 un modelo atómico con electrones en órbitas de energía definida?",
+        "opciones": {
+            "A": "Rutherford",
+            "B": "Bohr",
+            "C": "Dalton",
+            "D": "Thomson"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "avanzado",
+        "enunciado": "¿Cuál es el valor aproximado de la constante de Avogadro, en partículas por mol?",
+        "opciones": {
+            "A": "3,14 × 10²³",
+            "B": "9,8 × 10²³",
+            "C": "1,6 × 10¹⁹",
+            "D": "6,022 × 10²³"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué ley de la termodinámica establece que la entropía de un sistema aislado nunca disminuye?",
+        "opciones": {
+            "A": "Segunda ley",
+            "B": "Ley cero",
+            "C": "Primera ley",
+            "D": "Tercera ley"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "avanzado",
+        "enunciado": "En una molécula de agua, ¿qué tipo de enlace une cada átomo de hidrógeno con el oxígeno?",
+        "opciones": {
+            "A": "Iónico",
+            "B": "Metálico",
+            "C": "Covalente",
+            "D": "Puente de hidrógeno"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué molécula lleva la información genética del ADN, desde el núcleo hasta los ribosomas, para fabricar proteínas?",
+        "opciones": {
+            "A": "ADN polimerasa",
+            "B": "ARN de transferencia",
+            "C": "ATP",
+            "D": "ARN mensajero"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué teoría explica el origen del universo a partir de una expansión desde un estado muy denso y caliente?",
+        "opciones": {
+            "A": "Teoría del estado estacionario",
+            "B": "Teoría del Big Bang",
+            "C": "Teoría de cuerdas",
+            "D": "Teoría de la relatividad especial"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "avanzado",
+        "enunciado": "¿Cuál es la ecuación de Einstein que relaciona la energía en reposo con la masa?",
+        "opciones": {
+            "A": "E = mv²",
+            "B": "F = ma",
+            "C": "E = mc²",
+            "D": "E = hf"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué proceso nuclear produce la energía del Sol?",
+        "opciones": {
+            "A": "Fusión de hidrógeno en helio",
+            "B": "Fisión de uranio",
+            "C": "Desintegración beta",
+            "D": "Combustión de carbono"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "avanzado",
+        "enunciado": "¿Quién descubrió la penicilina en 1928?",
+        "opciones": {
+            "A": "Louis Pasteur",
+            "B": "Robert Koch",
+            "C": "Edward Jenner",
+            "D": "Alexander Fleming"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "ciencia",
+        "nivel": "avanzado",
+        "enunciado": "¿Cuál es la unidad de resistencia eléctrica en el Sistema Internacional?",
+        "opciones": {
+            "A": "Voltio",
+            "B": "Ohmio",
+            "C": "Amperio",
+            "D": "Faradio"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "historia",
+        "nivel": "basico",
+        "enunciado": "¿En qué año llegó Cristóbal Colón a América por primera vez?",
+        "opciones": {
+            "A": "1453",
+            "B": "1519",
+            "C": "1492",
+            "D": "1776"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "historia",
+        "nivel": "basico",
+        "enunciado": "¿Quién fue el primer presidente de los Estados Unidos?",
+        "opciones": {
+            "A": "George Washington",
+            "B": "Abraham Lincoln",
+            "C": "Thomas Jefferson",
+            "D": "Benjamin Franklin"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "historia",
+        "nivel": "basico",
+        "enunciado": "¿Qué civilización antigua construyó las pirámides de Giza?",
+        "opciones": {
+            "A": "Romana",
+            "B": "Griega",
+            "C": "Maya",
+            "D": "Egipcia"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "historia",
+        "nivel": "basico",
+        "enunciado": "¿En qué año comenzó la Primera Guerra Mundial?",
+        "opciones": {
+            "A": "1905",
+            "B": "1914",
+            "C": "1918",
+            "D": "1939"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "historia",
+        "nivel": "basico",
+        "enunciado": "¿En qué país comenzó la Revolución Industrial?",
+        "opciones": {
+            "A": "Gran Bretaña",
+            "B": "Francia",
+            "C": "Alemania",
+            "D": "Estados Unidos"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "historia",
+        "nivel": "basico",
+        "enunciado": "¿Qué título recibió Octavio en el año 27 a. C., considerado el inicio del Imperio romano?",
+        "opciones": {
+            "A": "Cónsul",
+            "B": "Dictador perpetuo",
+            "C": "Augusto",
+            "D": "Tribuno de la plebe"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "historia",
+        "nivel": "basico",
+        "enunciado": "¿Qué civilización construyó la ciudadela de Machu Picchu?",
+        "opciones": {
+            "A": "Maya",
+            "B": "Azteca",
+            "C": "Muisca",
+            "D": "Inca"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "historia",
+        "nivel": "basico",
+        "enunciado": "¿En qué año terminó la Segunda Guerra Mundial?",
+        "opciones": {
+            "A": "1918",
+            "B": "1945",
+            "C": "1939",
+            "D": "1955"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "historia",
+        "nivel": "basico",
+        "enunciado": "¿Qué muro dividió una ciudad alemana entre 1961 y 1989?",
+        "opciones": {
+            "A": "Muro de Adriano",
+            "B": "Gran Muralla",
+            "C": "Muro de Berlín",
+            "D": "Muro de las Lamentaciones"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "historia",
+        "nivel": "basico",
+        "enunciado": "¿Quién nació en Caracas en 1783 y es conocido como El Libertador?",
+        "opciones": {
+            "A": "Simón Bolívar",
+            "B": "José de San Martín",
+            "C": "Francisco de Paula Santander",
+            "D": "Antonio José de Sucre"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "historia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué hecho se conmemora en Francia el 14 de julio?",
+        "opciones": {
+            "A": "La coronación de Napoleón",
+            "B": "La muerte de Luis XIV",
+            "C": "La firma del Tratado de Versalles",
+            "D": "La toma de la Bastilla"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "historia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué tratado de 1919 puso fin oficialmente a la Primera Guerra Mundial con Alemania?",
+        "opciones": {
+            "A": "Tratado de Versalles",
+            "B": "Tratado de Tordesillas",
+            "C": "Paz de Westfalia",
+            "D": "Tratado de Utrecht"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "historia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué gobernante francés fue derrotado en la batalla de Waterloo en 1815?",
+        "opciones": {
+            "A": "Luis XIV",
+            "B": "Napoleón Bonaparte",
+            "C": "Carlomagno",
+            "D": "Robespierre"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "historia",
+        "nivel": "intermedio",
+        "enunciado": "¿Cómo se llama el periodo de tensión entre Estados Unidos y la Unión Soviética después de la Segunda Guerra Mundial?",
+        "opciones": {
+            "A": "Guerra de los Cien Años",
+            "B": "Guerra de Secesión",
+            "C": "Guerra Fría",
+            "D": "Guerra de Vietnam"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "historia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué pueblo de Mesopotamia desarrolló la escritura cuneiforme?",
+        "opciones": {
+            "A": "Fenicios",
+            "B": "Egipcios",
+            "C": "Griegos",
+            "D": "Sumerios"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "historia",
+        "nivel": "intermedio",
+        "enunciado": "¿En qué año cayó el Imperio romano de Occidente?",
+        "opciones": {
+            "A": "395",
+            "B": "476",
+            "C": "1453",
+            "D": "800"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "historia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué documento de 1215 limitó el poder del rey de Inglaterra?",
+        "opciones": {
+            "A": "Carta Magna",
+            "B": "Bula de Oro",
+            "C": "Código de Hammurabi",
+            "D": "Declaración de Independencia"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "historia",
+        "nivel": "intermedio",
+        "enunciado": "¿Quién encabezó a los bolcheviques en la Revolución rusa de octubre de 1917?",
+        "opciones": {
+            "A": "Stalin",
+            "B": "Trotsky",
+            "C": "Lenin",
+            "D": "Gorbachov"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "historia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué movimiento cultural europeo de los siglos XIV al XVI renovó el arte y el interés por la antigüedad clásica?",
+        "opciones": {
+            "A": "Barroco",
+            "B": "Renacimiento",
+            "C": "Ilustración",
+            "D": "Romanticismo"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "historia",
+        "nivel": "intermedio",
+        "enunciado": "¿En qué año se proclamó la independencia de los Estados Unidos?",
+        "opciones": {
+            "A": "1492",
+            "B": "1789",
+            "C": "1812",
+            "D": "1776"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "historia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué conferencia de 1884 y 1885 reguló el reparto colonial de África entre las potencias europeas?",
+        "opciones": {
+            "A": "Conferencia de Berlín",
+            "B": "Congreso de Viena",
+            "C": "Conferencia de Yalta",
+            "D": "Conferencia de Bandung"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "historia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué paz de 1648 puso fin a la Guerra de los Treinta Años?",
+        "opciones": {
+            "A": "Paz de Augsburgo",
+            "B": "Tratado de Utrecht",
+            "C": "Paz de Westfalia",
+            "D": "Tratado de Versalles"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "historia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué emperador romano, a su muerte en el año 395, dividió el Imperio entre Oriente y Occidente?",
+        "opciones": {
+            "A": "Constantino I",
+            "B": "Teodosio I",
+            "C": "Diocleciano",
+            "D": "Justiniano"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "historia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué batalla de 1066 llevó a Guillermo el Conquistador al trono de Inglaterra?",
+        "opciones": {
+            "A": "Batalla de Azincourt",
+            "B": "Batalla de Waterloo",
+            "C": "Batalla de Crécy",
+            "D": "Batalla de Hastings"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "historia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué dinastía fue la última en gobernar China, desde 1644 hasta 1912?",
+        "opciones": {
+            "A": "Qing",
+            "B": "Ming",
+            "C": "Han",
+            "D": "Tang"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "historia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué tratado de 1494 repartió el Nuevo Mundo entre España y Portugal?",
+        "opciones": {
+            "A": "Tratado de Madrid",
+            "B": "Tratado de Versalles",
+            "C": "Tratado de Tordesillas",
+            "D": "Tratado de Utrecht"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "historia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué reformador alemán publicó sus 95 tesis en 1517?",
+        "opciones": {
+            "A": "Juan Calvino",
+            "B": "Erasmo de Róterdam",
+            "C": "Ulrico Zuinglio",
+            "D": "Martín Lutero"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "historia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué crisis de 1962 llevó al mundo al borde de una guerra nuclear por misiles soviéticos instalados en el Caribe?",
+        "opciones": {
+            "A": "Crisis de Suez",
+            "B": "Crisis de los misiles de Cuba",
+            "C": "Invasión de Bahía de Cochinos",
+            "D": "Bloqueo de Berlín"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "historia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué reunión internacional de 1814 y 1815 reorganizó Europa después de la derrota de Napoleón?",
+        "opciones": {
+            "A": "Congreso de Viena",
+            "B": "Conferencia de Yalta",
+            "C": "Concilio de Trento",
+            "D": "Conferencia de Potsdam"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "historia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué imperio fue gobernado por Suleimán el Magnífico?",
+        "opciones": {
+            "A": "Imperio persa",
+            "B": "Imperio bizantino",
+            "C": "Imperio mogol",
+            "D": "Imperio otomano"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "basico",
+        "enunciado": "¿Cuál es el océano más grande del mundo?",
+        "opciones": {
+            "A": "Atlántico",
+            "B": "Índico",
+            "C": "Ártico",
+            "D": "Pacífico"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "basico",
+        "enunciado": "¿Cuál es la capital de Francia?",
+        "opciones": {
+            "A": "Londres",
+            "B": "París",
+            "C": "Roma",
+            "D": "Berlín"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "basico",
+        "enunciado": "¿Qué continente es conocido como el continente blanco?",
+        "opciones": {
+            "A": "Antártida",
+            "B": "Asia",
+            "C": "Oceanía",
+            "D": "Europa"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "basico",
+        "enunciado": "¿Cuál es el río más largo de Sudamérica?",
+        "opciones": {
+            "A": "Orinoco",
+            "B": "Magdalena",
+            "C": "Amazonas",
+            "D": "Paraná"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "basico",
+        "enunciado": "¿Cuál es el país más grande del mundo por superficie?",
+        "opciones": {
+            "A": "Canadá",
+            "B": "Rusia",
+            "C": "China",
+            "D": "Estados Unidos"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "basico",
+        "enunciado": "¿En qué continente se encuentra la mayor parte de Egipto?",
+        "opciones": {
+            "A": "Asia",
+            "B": "Europa",
+            "C": "Oceanía",
+            "D": "África"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "basico",
+        "enunciado": "¿Cuál es la capital de España?",
+        "opciones": {
+            "A": "Barcelona",
+            "B": "Lisboa",
+            "C": "Madrid",
+            "D": "Sevilla"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "basico",
+        "enunciado": "¿Cuál es la montaña más alta del mundo sobre el nivel del mar?",
+        "opciones": {
+            "A": "Monte Everest",
+            "B": "K2",
+            "C": "Aconcagua",
+            "D": "Kilimanjaro"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "basico",
+        "enunciado": "¿Cuál es el desierto cálido más grande del mundo?",
+        "opciones": {
+            "A": "Gobi",
+            "B": "Sahara",
+            "C": "Atacama",
+            "D": "Kalahari"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "basico",
+        "enunciado": "¿Cuál es la capital de Japón?",
+        "opciones": {
+            "A": "Kioto",
+            "B": "Osaka",
+            "C": "Seúl",
+            "D": "Tokio"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "intermedio",
+        "enunciado": "¿Cuál es la capital de Australia?",
+        "opciones": {
+            "A": "Canberra",
+            "B": "Sídney",
+            "C": "Melbourne",
+            "D": "Perth"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué cordillera se usa convencionalmente como límite entre Europa y Asia en Rusia?",
+        "opciones": {
+            "A": "Alpes",
+            "B": "Pirineos",
+            "C": "Urales",
+            "D": "Cárpatos"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué estrecho separa España de Marruecos?",
+        "opciones": {
+            "A": "Estrecho de Magallanes",
+            "B": "Estrecho de Bering",
+            "C": "Canal de la Mancha",
+            "D": "Estrecho de Gibraltar"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "intermedio",
+        "enunciado": "¿Cuál es la capital de Canadá?",
+        "opciones": {
+            "A": "Toronto",
+            "B": "Ottawa",
+            "C": "Vancouver",
+            "D": "Montreal"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué mar separa la península itálica de los Balcanes?",
+        "opciones": {
+            "A": "Mar Adriático",
+            "B": "Mar Báltico",
+            "C": "Mar Negro",
+            "D": "Mar del Norte"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué río atraviesa Egipto de sur a norte hasta el mar Mediterráneo?",
+        "opciones": {
+            "A": "Congo",
+            "B": "Níger",
+            "C": "Zambeze",
+            "D": "Nilo"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "intermedio",
+        "enunciado": "¿Cuál es la capital de Turquía?",
+        "opciones": {
+            "A": "Estambul",
+            "B": "Esmirna",
+            "C": "Ankara",
+            "D": "Antalya"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué país europeo tiene forma de bota?",
+        "opciones": {
+            "A": "España",
+            "B": "Italia",
+            "C": "Grecia",
+            "D": "Portugal"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "intermedio",
+        "enunciado": "¿Cuál es el punto más profundo de los océanos?",
+        "opciones": {
+            "A": "Fosa de las Marianas",
+            "B": "Fosa de Puerto Rico",
+            "C": "Fosa de Tonga",
+            "D": "Fosa de Java"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué línea imaginaria divide la Tierra en hemisferio norte y hemisferio sur?",
+        "opciones": {
+            "A": "Meridiano de Greenwich",
+            "B": "Trópico de Cáncer",
+            "C": "Línea del Ecuador",
+            "D": "Trópico de Capricornio"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "avanzado",
+        "enunciado": "¿Cuál es la capital de Kazajistán?",
+        "opciones": {
+            "A": "Almaty",
+            "B": "Astaná",
+            "C": "Taskent",
+            "D": "Biskek"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué país africano tiene como capital a Adís Abeba?",
+        "opciones": {
+            "A": "Kenia",
+            "B": "Nigeria",
+            "C": "Sudán",
+            "D": "Etiopía"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué río atraviesa la ciudad de Budapest?",
+        "opciones": {
+            "A": "Danubio",
+            "B": "Rin",
+            "C": "Elba",
+            "D": "Sena"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "avanzado",
+        "enunciado": "¿Cuál es el país más pequeño del mundo por superficie?",
+        "opciones": {
+            "A": "Mónaco",
+            "B": "Ciudad del Vaticano",
+            "C": "San Marino",
+            "D": "Liechtenstein"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "avanzado",
+        "enunciado": "¿Cuál es el mayor lago de agua dulce del mundo por superficie?",
+        "opciones": {
+            "A": "Lago Victoria",
+            "B": "Lago Baikal",
+            "C": "Lago Hurón",
+            "D": "Lago Superior"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué estrecho separa Asia de América del Norte?",
+        "opciones": {
+            "A": "Estrecho de Magallanes",
+            "B": "Estrecho de Gibraltar",
+            "C": "Estrecho de Bering",
+            "D": "Estrecho de Ormuz"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "avanzado",
+        "enunciado": "¿Cuál es la capital de Nueva Zelanda?",
+        "opciones": {
+            "A": "Wellington",
+            "B": "Auckland",
+            "C": "Christchurch",
+            "D": "Hamilton"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "avanzado",
+        "enunciado": "¿En qué país se encuentra principalmente el desierto de Atacama?",
+        "opciones": {
+            "A": "Perú",
+            "B": "Argentina",
+            "C": "Bolivia",
+            "D": "Chile"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué cadena montañosa es la más larga de la Tierra sobre los continentes?",
+        "opciones": {
+            "A": "Himalaya",
+            "B": "Andes",
+            "C": "Montañas Rocosas",
+            "D": "Alpes"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "geografia",
+        "nivel": "avanzado",
+        "enunciado": "¿Cuál es la capital de Mongolia?",
+        "opciones": {
+            "A": "Pekín",
+            "B": "Astaná",
+            "C": "Ulán Bator",
+            "D": "Katmandú"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "basico",
+        "enunciado": "¿Qué paradigma de programación sigue principalmente Elixir?",
+        "opciones": {
+            "A": "Funcional",
+            "B": "Orientado a objetos con herencia",
+            "C": "Imperativo con saltos goto",
+            "D": "Lógico basado en reglas"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "basico",
+        "enunciado": "¿Sobre qué máquina virtual se ejecuta Elixir?",
+        "opciones": {
+            "A": "JVM, la máquina virtual de Java",
+            "B": "CLR, el entorno de ejecución de .NET",
+            "C": "BEAM, la máquina virtual de Erlang",
+            "D": "V8, el motor de JavaScript"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "basico",
+        "enunciado": "¿Qué hace el operador |> en Elixir?",
+        "opciones": {
+            "A": "Compara si dos valores son estrictamente iguales",
+            "B": "Pasa el resultado de la izquierda como primer argumento de la derecha",
+            "C": "Concatena dos listas en una sola lista nueva",
+            "D": "Asigna un valor a una variable ya existente"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "basico",
+        "enunciado": "¿Qué tipo de dato es :ok en Elixir?",
+        "opciones": {
+            "A": "Una cadena de texto",
+            "B": "Un entero",
+            "C": "Una lista",
+            "D": "Un átomo"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "basico",
+        "enunciado": "¿Qué significa que los datos en Elixir sean inmutables?",
+        "opciones": {
+            "A": "Una vez creado un valor no cambia; las operaciones producen valores nuevos",
+            "B": "No se pueden crear variables",
+            "C": "Los datos solo se pueden leer desde un archivo",
+            "D": "Los valores se borran después de usarse"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "basico",
+        "enunciado": "¿Qué palabra clave se usa para declarar un módulo en Elixir?",
+        "opciones": {
+            "A": "module",
+            "B": "class",
+            "C": "defmodule",
+            "D": "package"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "basico",
+        "enunciado": "¿Qué palabra clave define una función privada dentro de un módulo?",
+        "opciones": {
+            "A": "private",
+            "B": "defmodule",
+            "C": "def",
+            "D": "defp"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "basico",
+        "enunciado": "En Elixir, ¿qué hace el operador = ?",
+        "opciones": {
+            "A": "Compara dos valores y devuelve true o false",
+            "B": "Hace coincidencia de patrones (pattern matching) entre ambos lados",
+            "C": "Concatena dos cadenas",
+            "D": "Declara una constante"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "basico",
+        "enunciado": "¿Qué forma es la convención en Elixir para devolver un resultado exitoso de una función?",
+        "opciones": {
+            "A": "{:ok, valor}",
+            "B": ":success",
+            "C": "valor y 0",
+            "D": "{:fin, valor}"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "basico",
+        "enunciado": "¿Qué palabra clave introduce un guard en la cláusula de una función?",
+        "opciones": {
+            "A": "if",
+            "B": "unless",
+            "C": "when",
+            "D": "case"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué devuelve Enum.map([1, 2, 3], fn x -> x * 2 end)?",
+        "opciones": {
+            "A": "[1, 2, 3]",
+            "B": "[3, 6]",
+            "C": "[1, 4, 9]",
+            "D": "[2, 4, 6]"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué función de Enum conserva solo los elementos que cumplen una condición?",
+        "opciones": {
+            "A": "Enum.map/2",
+            "B": "Enum.filter/2",
+            "C": "Enum.reduce/3",
+            "D": "Enum.count/1"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué devuelve Enum.sum([])?",
+        "opciones": {
+            "A": "0",
+            "B": "nil",
+            "C": "Un error",
+            "D": "Una lista vacía"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué caracteriza a la recursión de cola (tail recursion)?",
+        "opciones": {
+            "A": "La función se llama a sí misma dos veces",
+            "B": "La función no tiene caso base",
+            "C": "La llamada recursiva es la última operación de la función",
+            "D": "La función recorre la lista de derecha a izquierda"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "intermedio",
+        "enunciado": "Al recorrer una lista con recursión, ¿cuál suele ser el caso base?",
+        "opciones": {
+            "A": "Una lista con cien elementos",
+            "B": "La lista vacía",
+            "C": "El último elemento de la lista",
+            "D": "La propia función"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué macro se usa dentro de un módulo para definir un struct?",
+        "opciones": {
+            "A": "defrecord",
+            "B": "defmap",
+            "C": "struct",
+            "D": "defstruct"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "intermedio",
+        "enunciado": "¿Cuál es la diferencia principal entre Enum y Stream?",
+        "opciones": {
+            "A": "Stream evalúa de forma perezosa y Enum de forma ansiosa",
+            "B": "Stream es siempre más lento que Enum en cualquier caso",
+            "C": "Enum solo funciona con archivos y Stream con listas",
+            "D": "Stream modifica la colección original al recorrerla"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué función lee todo el contenido de un archivo y devuelve {:ok, contenido} o {:error, razón}?",
+        "opciones": {
+            "A": "File.write/2",
+            "B": "IO.read/1",
+            "C": "File.read/1",
+            "D": "File.exists?/1"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué ocurre al usar mapa.campo con una clave átomo que no existe en el mapa?",
+        "opciones": {
+            "A": "Devuelve nil",
+            "B": "Lanza un KeyError",
+            "C": "Devuelve una lista vacía",
+            "D": "Crea la clave automáticamente"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué hace Map.put(mapa, :a, 1)?",
+        "opciones": {
+            "A": "Modifica el mapa original agregando la clave :a",
+            "B": "Elimina la clave :a del mapa si existe",
+            "C": "Devuelve únicamente el valor 1 asociado a la clave",
+            "D": "Devuelve un mapa nuevo con :a agregada o actualizada"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué devuelve spawn/1 al crear un proceso?",
+        "opciones": {
+            "A": "El resultado de la función",
+            "B": "Un número de error",
+            "C": "El PID del nuevo proceso",
+            "D": ":ok"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "avanzado",
+        "enunciado": "¿Dónde queda un mensaje enviado con send/2 hasta que el proceso destino lo recibe?",
+        "opciones": {
+            "A": "En su buzón de mensajes (mailbox)",
+            "B": "Directamente en la pantalla",
+            "C": "En un archivo de registro",
+            "D": "En la cola del sistema operativo"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué bloque se usa para recibir mensajes del buzón de un proceso?",
+        "opciones": {
+            "A": "listen",
+            "B": "await",
+            "C": "handle",
+            "D": "receive"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "avanzado",
+        "enunciado": "¿Cuál es la diferencia entre GenServer.call/2 y GenServer.cast/2?",
+        "opciones": {
+            "A": "cast espera respuesta y call no",
+            "B": "call espera respuesta y cast no",
+            "C": "Ambos esperan respuesta",
+            "D": "Ninguno envía mensajes"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué hace Process.monitor/1?",
+        "opciones": {
+            "A": "Avisa con un mensaje {:DOWN, ...} cuando el proceso termina",
+            "B": "Reinicia automáticamente el proceso monitoreado si falla",
+            "C": "Impide que el proceso monitoreado llegue a terminar",
+            "D": "Cambia la prioridad de ejecución del proceso monitoreado"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué estrategia de supervisión reinicia únicamente al hijo que falló?",
+        "opciones": {
+            "A": ":one_for_all",
+            "B": ":rest_for_one",
+            "C": ":transient",
+            "D": ":one_for_one"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué opción de reinicio hace que un hijo del supervisor se reinicie solo si termina de forma anormal?",
+        "opciones": {
+            "A": ":permanent",
+            "B": ":temporary",
+            "C": ":transient",
+            "D": ":one_for_one"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué opción de iex le da un nombre corto a un nodo?",
+        "opciones": {
+            "A": "--cookie",
+            "B": "--sname",
+            "C": "--node",
+            "D": "--short"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué módulo permite arrancar hijos supervisados en tiempo de ejecución, sin definirlos de antemano?",
+        "opciones": {
+            "A": "Agent",
+            "B": "Registry",
+            "C": "DynamicSupervisor",
+            "D": "Application"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "programacion",
+        "nivel": "avanzado",
+        "enunciado": "¿En qué archivo se declaran las dependencias de un proyecto Mix?",
+        "opciones": {
+            "A": "mix.exs",
+            "B": "config.exs",
+            "C": "mix.lock",
+            "D": "README.md"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "basico",
+        "enunciado": "¿Cuál es la capital de Colombia?",
+        "opciones": {
+            "A": "Medellín",
+            "B": "Bogotá",
+            "C": "Cali",
+            "D": "Barranquilla"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "basico",
+        "enunciado": "¿Cuáles son los colores de la bandera de Colombia, de arriba hacia abajo?",
+        "opciones": {
+            "A": "Rojo, azul y amarillo",
+            "B": "Verde, blanco y rojo",
+            "C": "Azul, blanco y rojo",
+            "D": "Amarillo, azul y rojo"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "basico",
+        "enunciado": "¿Qué océanos bañan las costas de Colombia?",
+        "opciones": {
+            "A": "Pacífico y Atlántico (mar Caribe)",
+            "B": "Solo el Pacífico, sin costa sobre el Caribe",
+            "C": "Solo el Atlántico, sin costa sobre el Pacífico",
+            "D": "Índico y Pacífico, con costa sobre ambos"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "basico",
+        "enunciado": "¿En qué departamento se encuentra la ciudad de Armenia?",
+        "opciones": {
+            "A": "Caldas",
+            "B": "Risaralda",
+            "C": "Quindío",
+            "D": "Tolima"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "basico",
+        "enunciado": "¿Cuál es la moneda de Colombia?",
+        "opciones": {
+            "A": "Peso colombiano",
+            "B": "Sol",
+            "C": "Bolívar",
+            "D": "Dólar"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "basico",
+        "enunciado": "¿Qué ciudad colombiana es conocida como la Ciudad de la Eterna Primavera?",
+        "opciones": {
+            "A": "Bogotá",
+            "B": "Cali",
+            "C": "Pereira",
+            "D": "Medellín"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "basico",
+        "enunciado": "¿Cuál es el principal río de Colombia, que recorre el país de sur a norte hasta el mar Caribe?",
+        "opciones": {
+            "A": "Putumayo",
+            "B": "Magdalena",
+            "C": "Orinoco",
+            "D": "Atrato"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "basico",
+        "enunciado": "¿Con cuál de estos países limita Colombia?",
+        "opciones": {
+            "A": "Chile",
+            "B": "Bolivia",
+            "C": "Ecuador",
+            "D": "Uruguay"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "basico",
+        "enunciado": "¿Cuál es el cultivo más emblemático de Colombia, famoso en el mundo?",
+        "opciones": {
+            "A": "Arroz",
+            "B": "Banano",
+            "C": "Cacao",
+            "D": "Café"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "basico",
+        "enunciado": "¿Cuál es el ave nacional de Colombia?",
+        "opciones": {
+            "A": "Cóndor de los Andes",
+            "B": "Águila arpía",
+            "C": "Guacamaya",
+            "D": "Tucán"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "intermedio",
+        "enunciado": "¿En qué año ocurrió el Grito de Independencia del 20 de julio?",
+        "opciones": {
+            "A": "1781",
+            "B": "1819",
+            "C": "1810",
+            "D": "1830"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué batalla del 7 de agosto de 1819 selló la independencia de la Nueva Granada?",
+        "opciones": {
+            "A": "Batalla de Ayacucho",
+            "B": "Batalla de Boyacá",
+            "C": "Batalla de Carabobo",
+            "D": "Batalla de Pichincha"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "intermedio",
+        "enunciado": "¿Cuál es la capital del departamento de Antioquia?",
+        "opciones": {
+            "A": "Medellín",
+            "B": "Rionegro",
+            "C": "Envigado",
+            "D": "Bello"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "intermedio",
+        "enunciado": "¿Cuántas cordilleras forman los Andes colombianos?",
+        "opciones": {
+            "A": "2",
+            "B": "4",
+            "C": "5",
+            "D": "3"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué macizo montañoso con nieves perpetuas se levanta junto al mar Caribe colombiano?",
+        "opciones": {
+            "A": "Sierra Nevada del Cocuy",
+            "B": "Sierra Nevada de Santa Marta",
+            "C": "Nevado del Huila",
+            "D": "Nevado del Tolima"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "intermedio",
+        "enunciado": "¿Cuál es la capital del departamento del Valle del Cauca?",
+        "opciones": {
+            "A": "Palmira",
+            "B": "Buenaventura",
+            "C": "Cali",
+            "D": "Tuluá"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué río colombiano es conocido como el río de los cinco colores?",
+        "opciones": {
+            "A": "Caño Cristales",
+            "B": "Río Magdalena",
+            "C": "Río Atrato",
+            "D": "Río Guaviare"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "intermedio",
+        "enunciado": "¿Qué escritor colombiano ganó el Premio Nobel de Literatura en 1982?",
+        "opciones": {
+            "A": "Álvaro Mutis",
+            "B": "Fernando Vallejo",
+            "C": "Jorge Isaacs",
+            "D": "Gabriel García Márquez"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "intermedio",
+        "enunciado": "¿Cuál es la novela más conocida de Gabriel García Márquez, ambientada en Macondo?",
+        "opciones": {
+            "A": "El coronel no tiene quien le escriba",
+            "B": "Crónica de una muerte anunciada",
+            "C": "Cien años de soledad",
+            "D": "El amor en los tiempos del cólera"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "intermedio",
+        "enunciado": "¿En qué año se promulgó la actual Constitución Política de Colombia?",
+        "opciones": {
+            "A": "1886",
+            "B": "1991",
+            "C": "1948",
+            "D": "2000"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "avanzado",
+        "enunciado": "¿Quién fue el primer presidente de la Gran Colombia?",
+        "opciones": {
+            "A": "Francisco de Paula Santander",
+            "B": "Antonio Nariño",
+            "C": "José María Obando",
+            "D": "Simón Bolívar"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "avanzado",
+        "enunciado": "¿Cuál es el departamento más extenso de Colombia?",
+        "opciones": {
+            "A": "Amazonas",
+            "B": "Vichada",
+            "C": "Meta",
+            "D": "Caquetá"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "avanzado",
+        "enunciado": "¿En qué ciudad se reunió en 1828 la Convención que buscaba reformar la Constitución de la Gran Colombia?",
+        "opciones": {
+            "A": "Cúcuta",
+            "B": "Villa de Leyva",
+            "C": "Ocaña",
+            "D": "Popayán"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué hecho ocurrió en Bogotá el 9 de abril de 1948 y desató el Bogotazo?",
+        "opciones": {
+            "A": "La muerte de Simón Bolívar",
+            "B": "El asesinato de Jorge Eliécer Gaitán",
+            "C": "La toma del Palacio de Justicia",
+            "D": "El fin de la Guerra de los Mil Días"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "avanzado",
+        "enunciado": "¿A qué región natural pertenecen los Llanos Orientales de Colombia?",
+        "opciones": {
+            "A": "Región Andina",
+            "B": "Región Caribe",
+            "C": "Región Pacífica",
+            "D": "Región Orinoquía"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "avanzado",
+        "enunciado": "¿Cuál es el único departamento colombiano con costas sobre los océanos Pacífico y Atlántico?",
+        "opciones": {
+            "A": "Chocó",
+            "B": "Antioquia",
+            "C": "Nariño",
+            "D": "La Guajira"
+        },
+        "respuesta": "A"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "avanzado",
+        "enunciado": "¿Con qué grupo guerrillero firmó el Gobierno colombiano el Acuerdo Final de paz en 2016?",
+        "opciones": {
+            "A": "ELN",
+            "B": "FARC-EP",
+            "C": "M-19",
+            "D": "AUC"
+        },
+        "respuesta": "B"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "avanzado",
+        "enunciado": "¿Cuál es la capital del departamento de Santander?",
+        "opciones": {
+            "A": "Cúcuta",
+            "B": "Barrancabermeja",
+            "C": "Bucaramanga",
+            "D": "San Gil"
+        },
+        "respuesta": "C"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "avanzado",
+        "enunciado": "¿Cuál es el principal puerto marítimo de Colombia sobre el océano Pacífico?",
+        "opciones": {
+            "A": "Cartagena",
+            "B": "Santa Marta",
+            "C": "Barranquilla",
+            "D": "Buenaventura"
+        },
+        "respuesta": "D"
+    },
+    {
+        "tema": "colombia",
+        "nivel": "avanzado",
+        "enunciado": "¿Qué volcán colombiano, con su erupción de 1985, causó la tragedia de Armero?",
+        "opciones": {
+            "A": "Nevado del Ruiz",
+            "B": "Galeras",
+            "C": "Nevado del Huila",
+            "D": "Puracé"
+        },
+        "respuesta": "A"
+    }
+]
