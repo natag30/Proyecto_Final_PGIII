@@ -1,4 +1,8 @@
 defmodule Trivia.Errores do
+  @moduledoc """
+  Módulo que contiene los mensajes de error para la aplicación Trivia.
+  Cada función `mensaje/1` recibe un átomo que representa el tipo de error y devuelve un mensaje de error correspondiente.
+  """
   def mensaje(:sin_sesion),
     do: "No hay sesión iniciada. Por favor, inicia sesión usando el comando connect."
 
