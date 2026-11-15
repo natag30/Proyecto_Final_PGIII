@@ -115,12 +115,27 @@ defmodule Trivia.Persistencia do
     {:reply, :ok, estado}
   end
 
+
   @impl true
   def handle_call({:registrar_resultado, entrada}, _from, estado) do
     File.mkdir_p!("data")
-    linea = formatear_linea(entrada) <> "\n"
-    File.write!(@ruta_resultados, linea, [:append])
+    linea = entrada |> a_registro() |> formatear_linea()
+    File.write!(@ruta_resultados, linea <> "\n", [:append])
 
     {:reply, :ok, estado}
   end
+
+  # Convierte el ranking en la lista de jugadores que espera el historial
+  defp a_registro(%{ranking: ranking} = entrada) do
+    jugadores =
+      Enum.map(ranking, fn {usuario, puntaje} ->
+        %{usuario: usuario, puntaje: puntaje}
+      end)
+
+    entrada
+    |> Map.delete(:ranking)
+    |> Map.put(:jugadores, jugadores)
+  end
+
+  defp a_registro(entrada), do: entrada
 end
