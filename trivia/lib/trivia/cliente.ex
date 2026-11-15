@@ -50,15 +50,65 @@ defmodule Trivia.Cliente do
       {:error, :uso_incorrecto} ->
         IO.puts("Los argumentos del comando son incorrectos.")
 
+      {:create_game, tema, preguntas, tiempo} ->
+        case iniciar_receptor() do
+          {:ok, pid_receptor} ->
+            respuesta =
+              enviar({
+                :create_game,
+                tema,
+                preguntas,
+                tiempo,
+                pid_receptor
+              })
+
+            mostrar_respuesta("create_game", respuesta)
+
+          {:error, motivo} ->
+            IO.inspect(motivo, label: "Error al iniciar receptor")
+        end
+
+      {:connect, usuario, clave} ->
+        respuesta = enviar({:connect, usuario, clave})
+        mostrar_respuesta("connect", respuesta)
+
+      {:add_bot, dificultad} ->
+        respuesta = enviar({:add_bot, dificultad})
+        mostrar_respuesta("add_bot", respuesta)
+
+      {:start_game} ->
+        respuesta = enviar({:start_game})
+        mostrar_respuesta("start_game", respuesta)
+
+      {:answer, letra} ->
+        respuesta = enviar({:answer, letra})
+        mostrar_respuesta("answer", respuesta)
+
+      {:score} ->
+        respuesta = enviar({:score})
+        mostrar_respuesta("score", respuesta)
+
+      {:ranking, tema} ->
+        respuesta = enviar({:ranking, tema})
+        mostrar_respuesta("ranking", respuesta)
+
+      {:leave_game} ->
+        respuesta = enviar({:leave_game})
+        mostrar_respuesta("leave_game", respuesta)
+
+      {:disconnect} ->
+        respuesta = enviar({:disconnect})
+        mostrar_respuesta("disconnect", respuesta)
+
       peticion ->
         IO.inspect(peticion, label: "Petición interpretada")
     end
   end
 
 
-    def parsear_comando(comando) do
-    case String.split(String.trim(comando), ~r/\s+/, trim: true) do
 
+  def parsear_comando(comando) do
+    case String.split(String.trim(comando), ~r/\s+/, trim: true) do
       ["connect", usuario, clave] ->
         {:connect, usuario, clave}
 
@@ -102,6 +152,7 @@ defmodule Trivia.Cliente do
     end
   end
 
+
   defp convertir_entero(texto) do
     case Integer.parse(texto) do
       {numero, ""} -> {:ok, numero}
@@ -109,7 +160,7 @@ defmodule Trivia.Cliente do
     end
   end
 
-    def enviar(peticion) do
+  def enviar(peticion) do
     GenServer.call(
       {Trivia.Servidor.nombre(), nodo_servidor()},
       peticion
@@ -119,6 +170,17 @@ defmodule Trivia.Cliente do
   # Obtiene el nodo del servidor al que está conectado el cliente.
   defp nodo_servidor do
     Process.get(:nodo_servidor)
+  end
+
+  defp iniciar_receptor do
+    case Trivia.Receptor.iniciar() do
+      {:ok, pid_receptor} ->
+        Process.put(:pid_receptor, pid_receptor)
+        {:ok, pid_receptor}
+
+      {:error, motivo} ->
+        {:error, motivo}
+    end
   end
 
   def mostrar_respuesta(comando, respuesta) do
