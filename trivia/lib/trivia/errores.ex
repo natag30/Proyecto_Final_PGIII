@@ -40,8 +40,7 @@ defmodule Trivia.Errores do
       "Debes dar inicio a una partida primero. Usa el comando create_game para iniciar una nueva partida."
 
   def mensaje(:partida_cerrada),
-    do:
-      "La partida ya está llena o ya comenzó. No es posible unir más jugadores o bots."
+    do: "La partida ya está llena o ya comenzó. No es posible unir más jugadores o bots."
 
   def mensaje(:bots_insuficientes),
     do:
@@ -52,36 +51,29 @@ defmodule Trivia.Errores do
       "La letra ingresada no es una respuesta válida. Vuelve a intentar ingresando una letra de la A a la D."
 
   def mensaje(:sin_ronda_abierta),
-    do:
-      "Espera a la pregunta antes de contestar. No hay una ronda abierta actualmente."
+    do: "Espera a la pregunta antes de contestar. No hay una ronda abierta actualmente."
 
   def mensaje(:comando_invalido),
     do:
       "El comando ingresado no se reconoce. Por favor, verifica la sintaxis del comando e intenta nuevamente."
 
   def mensaje(:partida_iniciada),
-    do:
-    "La partida ya comenzó. No es posible agregar más bots ni iniciarla de nuevo."
+    do: "La partida ya comenzó. No es posible agregar más bots ni iniciarla de nuevo."
 
   def mensaje(:partida_llena),
-    do:
-      "La partida ya está llena. No es posible agregar más jugadores o bots."
+    do: "La partida ya está llena. No es posible agregar más jugadores o bots."
 
   def mensaje(:ronda_cerrada),
-    do:
-      "Espera a la pregunta antes de contestar. No hay una ronda abierta actualmente."
+    do: "Espera a la pregunta antes de contestar. No hay una ronda abierta actualmente."
 
   def mensaje(:ya_respondio),
-    do:
-      "Ya respondiste esta pregunta. Espera a la siguiente ronda."
+    do: "Ya respondiste esta pregunta. Espera a la siguiente ronda."
 
   def mensaje(:no_participa),
-    do:
-      "No participas en esta partida."
+    do: "No participas en esta partida."
 
   def mensaje(:dificultad_invalida),
-    do:
-      "La dificultad no es válida. Usa facil, medio o dificil."
+    do: "La dificultad no es válida. Usa facil, medio o dificil."
 
   def mensaje(_otro), do: "Ocurrió un error inesperado. Por favor, intenta nuevamente más tarde."
 end

@@ -147,6 +147,7 @@ defmodule Trivia.GestorPartidas do
               else
                 {:error, :dificultad_invalida}
               end
+
             {:reply, resultado, estado}
         end
     end

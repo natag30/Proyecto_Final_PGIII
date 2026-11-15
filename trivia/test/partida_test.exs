@@ -1,7 +1,6 @@
-#Autor: Carlos Andres
+# Autor: Carlos Andres
 
 defmodule Trivia.PartidaTest do
-  
   use ExUnit.Case
 
   test "permite agregar un bot cuando hay espacio" do

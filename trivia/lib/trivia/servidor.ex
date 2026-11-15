@@ -47,9 +47,8 @@ defmodule Trivia.Servidor do
     end
   end
 
-   @impl true
+  @impl true
   def handle_call({:connect, usuario, clave}, {pid_cliente, _referencia}, estado) do
-
     respuesta =
       Trivia.GestorJugadores.conectar(usuario, clave, pid_cliente)
 
@@ -62,11 +61,9 @@ defmodule Trivia.Servidor do
         {pid_cliente, _referencia},
         estado
       ) do
-
-    #Averigua que usuario esta asociado al proceso que hace la peticion
+    # Averigua que usuario esta asociado al proceso que hace la peticion
     case Trivia.GestorJugadores.usuario_de(pid_cliente) do
       {:ok, usuario} ->
-
         # Solicita al GestorPartidas que cree la partida.
         respuesta =
           Trivia.GestorPartidas.crear(
@@ -90,11 +87,9 @@ defmodule Trivia.Servidor do
         {pid_cliente, _referencia},
         estado
       ) do
-
-    #Identifica al usuario que envia la peticion
+    # Identifica al usuario que envia la peticion
     case Trivia.GestorJugadores.usuario_de(pid_cliente) do
       {:ok, usuario} ->
-
         respuesta =
           Trivia.GestorPartidas.agregar_bot(usuario, dificultad)
 
@@ -105,17 +100,15 @@ defmodule Trivia.Servidor do
     end
   end
 
-   @impl true
+  @impl true
   def handle_call(
         {:start_game},
         {pid_cliente, _referencia},
         estado
       ) do
-
-    #Busca que usuario esta asociado al proceso cliente
+    # Busca que usuario esta asociado al proceso cliente
     case Trivia.GestorJugadores.usuario_de(pid_cliente) do
       {:ok, usuario} ->
-
         respuesta =
           Trivia.GestorPartidas.iniciar_partida(usuario)
 
@@ -126,16 +119,14 @@ defmodule Trivia.Servidor do
     end
   end
 
-   @impl true
+  @impl true
   def handle_call(
         {:answer, letra},
         {pid_cliente, _referencia},
         estado
       ) do
-
     case Trivia.GestorJugadores.usuario_de(pid_cliente) do
       {:ok, usuario} ->
-
         respuesta =
           Trivia.GestorPartidas.responder(usuario, letra)
 
@@ -152,16 +143,13 @@ defmodule Trivia.Servidor do
         {pid_cliente, _referencia},
         estado
       ) do
-
-    #Identifica al usuario que realiza la consulta
+    # Identifica al usuario que realiza la consulta
     case Trivia.GestorJugadores.usuario_de(pid_cliente) do
       {:ok, usuario} ->
-
-        #Obtiene la partida asociada al usuario
+        # Obtiene la partida asociada al usuario
         case Trivia.GestorPartidas.partida_de(usuario) do
           {:ok, pid_partida} ->
-
-            #Consulta el puntaje directamente en la partida
+            # Consulta el puntaje directamente en la partida
             puntajes = Trivia.Partida.puntajes(pid_partida)
 
             respuesta = {:ok, Map.get(puntajes, usuario, 0)}
@@ -177,14 +165,13 @@ defmodule Trivia.Servidor do
     end
   end
 
-   @impl true
+  @impl true
   def handle_call(
         {:ranking, tema},
         _desde,
         estado
       ) do
-
-    #Solicita el ranking general o por tema
+    # Solicita el ranking general o por tema
     respuesta = Trivia.GestorJugadores.ranking(tema)
 
     {:reply, respuesta, estado}
@@ -196,10 +183,8 @@ defmodule Trivia.Servidor do
         {pid_cliente, _referencia},
         estado
       ) do
-
     case Trivia.GestorJugadores.usuario_de(pid_cliente) do
       {:ok, usuario} ->
-
         respuesta =
           Trivia.GestorPartidas.abandonar(usuario)
 
@@ -216,11 +201,9 @@ defmodule Trivia.Servidor do
         {pid_cliente, _referencia},
         estado
       ) do
-
     # Identifica al usuario asociado al proceso cliente.
     case Trivia.GestorJugadores.usuario_de(pid_cliente) do
       {:ok, usuario} ->
-
         # Desconecta al usuario y cierra su sesión.
         respuesta =
           Trivia.GestorJugadores.desconectar(usuario)

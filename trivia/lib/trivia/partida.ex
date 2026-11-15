@@ -221,7 +221,7 @@ defmodule Trivia.Partida do
     end
   end
 
-    def handle_call({:leave, jugador}, _from, state) do
+  def handle_call({:leave, jugador}, _from, state) do
     cond do
       jugador != state.creador ->
         {:reply, {:error, :no_participa}, state}
@@ -263,7 +263,7 @@ defmodule Trivia.Partida do
     {:stop, :normal, state}
   end
 
-     # se agotó el tiempo máximo de la partida
+  # se agotó el tiempo máximo de la partida
   def handle_info(:tiempo_agotado, %{estado: :en_curso} = state),
     do: {:noreply, terminar_por_abandono(state)}
 
@@ -271,7 +271,6 @@ defmodule Trivia.Partida do
     if state.gestor, do: Trivia.GestorPartidas.partida_terminada(state.id)
     {:stop, :normal, state}
   end
-
 
   def handle_info(:tiempo_agotado, state), do: {:noreply, state}
 

@@ -1,7 +1,6 @@
-#Autor: Carlos Andres
+# Autor: Carlos Andres
 
 defmodule Trivia.Cliente do
-
   def iniciar(nodo_servidor) do
     case conectar(nodo_servidor) do
       :ok ->
@@ -18,11 +17,11 @@ defmodule Trivia.Cliente do
     case Node.connect(nodo_servidor) do
       true -> :ok
       false -> :error
-      :ignored  -> :error
+      :ignored -> :error
     end
   end
 
-   defp leer_comandos do
+  defp leer_comandos do
     comando = IO.gets("\nTrivia > ")
 
     case comando do
@@ -105,8 +104,6 @@ defmodule Trivia.Cliente do
     end
   end
 
-
-
   def parsear_comando(comando) do
     case String.split(String.trim(comando), ~r/\s+/, trim: true) do
       ["connect", usuario, clave] ->
@@ -151,7 +148,6 @@ defmodule Trivia.Cliente do
         {:error, :comando_desconocido}
     end
   end
-
 
   defp convertir_entero(texto) do
     case Integer.parse(texto) do

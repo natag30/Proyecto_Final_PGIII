@@ -115,7 +115,6 @@ defmodule Trivia.Persistencia do
     {:reply, :ok, estado}
   end
 
-
   @impl true
   def handle_call({:registrar_resultado, entrada}, _from, estado) do
     File.mkdir_p!("data")
