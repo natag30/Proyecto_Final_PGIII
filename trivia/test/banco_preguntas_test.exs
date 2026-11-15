@@ -107,6 +107,16 @@ defmodule Trivia.BancoPreguntasTest do
       assert Enum.count(resultado, &(&1.nivel == :intermedio)) == 1
       assert Enum.count(resultado, &(&1.nivel == :avanzado)) == 0
     end
+
+    test "no repite preguntas y ordena los niveles de básico a avanzado" do
+      reparto = %{basico: 2, intermedio: 2, avanzado: 2}
+      resultado = BancoPreguntas.sortear(banco(), "ciencia", reparto)
+
+      assert Enum.uniq(resultado) == resultado
+
+      assert Enum.map(resultado, & &1.nivel) ==
+               [:basico, :basico, :intermedio, :intermedio, :avanzado, :avanzado]
+    end
   end
 
   describe "validar_tema/3" do

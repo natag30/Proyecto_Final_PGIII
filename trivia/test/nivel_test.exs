@@ -12,6 +12,10 @@ defmodule Trivia.NivelTest do
       assert Nivel.nivel_por_puntaje(180) == :avanzado
       assert Nivel.nivel_por_puntaje(100_000) == :avanzado
     end
+
+    test "clasifica un puntaje negativo como básico" do
+      assert Nivel.nivel_por_puntaje(-1) == :basico
+    end
   end
 
   describe "puntaje_en_tema/3" do
@@ -47,6 +51,15 @@ defmodule Trivia.NivelTest do
       ]
 
       assert Nivel.nivel_en_tema(historial, "ana", "ciencia") == :intermedio
+    end
+
+    test "un total negativo en el tema corresponde al nivel básico" do
+      historial = [
+        %{tema: "ciencia", jugadores: [%{usuario: "ana", puntaje: -25}]},
+        %{tema: "ciencia", jugadores: [%{usuario: "ana", puntaje: -10}]}
+      ]
+
+      assert Nivel.nivel_en_tema(historial, "ana", "ciencia") == :basico
     end
   end
 
