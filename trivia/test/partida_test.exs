@@ -94,8 +94,11 @@ defmodule Trivia.PartidaTest do
     ]
     |> Enum.each(fn nombre ->
       case Process.whereis(nombre) do
-        nil -> :ok
-        pid -> GenServer.stop(pid, :normal)
+        nil ->
+          :ok
+
+        pid ->
+          if Process.alive?(pid), do: GenServer.stop(pid, :normal)
       end
     end)
   end
