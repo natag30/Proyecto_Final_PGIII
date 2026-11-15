@@ -1,11 +1,11 @@
 # Autor: Diego Rincon
 
 defmodule Trivia.Bot do
-  @module """
+  @moduledoc "
   Jugador automatico. tiene su propio proceso y recibe las mismas notificaciones que el el usuario,
   tiene ventaja por que sabe la respuesta correcta ya que es parte del servidor
   responde con retraso ya que estamos utilizando process.send_after.
-  """
+  "
 
   use GenServer
 
@@ -77,7 +77,7 @@ defmodule Trivia.Bot do
 
     # decide la letra a responder y el retardo segun la dificultad y nivel
 
-    {letra, retardo_ms} = decidir(state.dificultad, nivel, ronda.correcta, state.tiempo)
+    {letra, retardo_ms} = decidir(state.dificultad, nivel, ronda.correcta, tiempo)
 
     # envia la respuesta despues del retardo y definiendo  aque ronda pertenece
 
@@ -92,7 +92,5 @@ defmodule Trivia.Bot do
     {:noreply, state}
   end
 
-  def handle_info({_otro, _mensaje}, state) do
-    {:noreply, state}
-  end
+  def handle_info(_otro, state), do: {:noreply, state}
 end

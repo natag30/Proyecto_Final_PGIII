@@ -5,6 +5,11 @@ defmodule Trivia.Errores do
   Módulo que contiene los mensajes de error para la aplicación Trivia.
   Cada función `mensaje/1` recibe un átomo que representa el tipo de error y devuelve un mensaje de error correspondiente.
   """
+
+  @doc """
+  Devuelve un mensaje de error basado en el tipo de error proporcionado.
+  Cualquier error no reconocido devuelve un mensaje genérico de error inesperado.
+  """
   def mensaje(:sin_sesion),
     do: "No hay sesión iniciada. Por favor, inicia sesión usando el comando connect."
 
@@ -24,7 +29,7 @@ defmodule Trivia.Errores do
 
   def mensaje(:ya_en_partida),
     do:
-      "Ya estás en una partida. Por favor, termina la partida actual utilizando el comando leave_game, antes de crear a otra."
+      "Ya estás en una partida. Por favor, termina la partida actual utilizando el comando leave_game, antes de crear otra."
 
   def mensaje(:tema_no_disponible),
     do:
@@ -35,7 +40,8 @@ defmodule Trivia.Errores do
       "Debes dar inicio a una partida primero. Usa el comando create_game para iniciar una nueva partida."
 
   def mensaje(:partida_cerrada),
-    do: "La partida ya está llena o ya comenzó. No es posible unir más jugadores."
+    do:
+      "La partida ya está llena o ya comenzó. No es posible unir más jugadores o bots."
 
   def mensaje(:bots_insuficientes),
     do:
@@ -46,11 +52,36 @@ defmodule Trivia.Errores do
       "La letra ingresada no es una respuesta válida. Vuelve a intentar ingresando una letra de la A a la D."
 
   def mensaje(:sin_ronda_abierta),
-    do: "Espera a la pregunta antes de contestar. No hay una ronda abierta actualmente."
+    do:
+      "Espera a la pregunta antes de contestar. No hay una ronda abierta actualmente."
 
   def mensaje(:comando_invalido),
     do:
       "El comando ingresado no se reconoce. Por favor, verifica la sintaxis del comando e intenta nuevamente."
+
+  def mensaje(:partida_iniciada),
+    do:
+    "La partida ya comenzó. No es posible agregar más bots ni iniciarla de nuevo."
+
+  def mensaje(:partida_llena),
+    do:
+      "La partida ya está llena. No es posible agregar más jugadores o bots."
+
+  def mensaje(:ronda_cerrada),
+    do:
+      "Espera a la pregunta antes de contestar. No hay una ronda abierta actualmente."
+
+  def mensaje(:ya_respondio),
+    do:
+      "Ya respondiste esta pregunta. Espera a la siguiente ronda."
+
+  def mensaje(:no_participa),
+    do:
+      "No participas en esta partida."
+
+  def mensaje(:dificultad_invalida),
+    do:
+      "La dificultad no es válida. Usa facil, medio o dificil."
 
   def mensaje(_otro), do: "Ocurrió un error inesperado. Por favor, intenta nuevamente más tarde."
 end
