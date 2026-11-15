@@ -137,24 +137,56 @@ defmodule Trivia.Cliente do
     end
   end
 
-  def mostrar_respuesta({:connect, _, _}, {:ok, :registrado}),
-    do: IO.puts("\nUsuario nuevo registrado. Sesión iniciada.")
+  def mostrar_respuesta(peticion, respuesta) do
+    case {peticion, respuesta} do
+      {_, {:error, motivo}} ->
+        IO.puts("\n" <> Trivia.Errores.mensaje(motivo))
 
-  def mostrar_respuesta({:connect, _, _}, {:ok, :existente}),
-    do: IO.puts("\nSesión iniciada.")
+      {{:score}, {:ok, resumen}} ->
+        mostrar_resumen(resumen)
 
-  def mostrar_respuesta({:add_bot, _}, {:ok, nombre}),
-    do: IO.puts("\nBot #{nombre} agregado a la partida.")
+      {{:ranking, _tema}, {:ok, filas}} ->
+        mostrar_ranking(filas)
 
-  def mostrar_respuesta({:answer, _}, {:ok, :registrada}), do: IO.puts("\nRespuesta registrada.")
+      {{:create_game, _, _, _}, {:ok, %{id: id, nivel: nivel}}} ->
+        IO.puts(
+          "\nPartida #{id} creada (nivel #{nivel}). Agrega bots con add_bot y luego start_game."
+        )
 
-  def mostrar_respuesta({:answer, _}, {:ok, :ignorada}),
-    do: IO.puts("\nYa habías respondido a esta pregunta; se ignora.")
+      {{:connect, _, _}, {:ok, :registrado}} ->
+        IO.puts("\nUsuario nuevo registrado. Sesión iniciada.")
 
-  def mostrar_respuesta({:start_game}, :ok), do: IO.puts("\nLa partida comenzó.")
-  def mostrar_respuesta({:leave_game}, :ok), do: IO.puts("\nHas abandonado la partida.")
-  def mostrar_respuesta({:disconnect}, :ok), do: IO.puts("\nSesión cerrada.")
-  def mostrar_respuesta(_peticion, :ok), do: IO.puts("\nListo.")
+      {{:connect, _, _}, {:ok, :existente}} ->
+        IO.puts("\nSesión iniciada.")
+
+      {{:add_bot, _}, {:ok, nombre}} ->
+        IO.puts("\nBot #{nombre} agregado a la partida.")
+
+      {{:answer, _}, {:ok, :registrada}} ->
+        IO.puts("\nRespuesta registrada.")
+
+      {{:answer, _}, {:ok, :ignorada}} ->
+        IO.puts("\nYa habías respondido a esta pregunta; se ignora.")
+
+      {{:start_game}, :ok} ->
+        IO.puts("\nLa partida comenzó.")
+
+      {{:leave_game}, :ok} ->
+        IO.puts("\nHas abandonado la partida.")
+
+      {{:disconnect}, :ok} ->
+        IO.puts("\nSesión cerrada.")
+
+      {_, :ok} ->
+        IO.puts("\nListo.")
+
+      {_, {:ok, resultado}} ->
+        IO.puts("\nListo: #{inspect(resultado)}")
+
+      {_, otra} ->
+        IO.inspect(otra, label: "Respuesta del servidor")
+    end
+  end
 
   def mostrar_resumen(resumen) do
     IO.puts("\nJugador: #{resumen.usuario}")
