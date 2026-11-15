@@ -1,3 +1,5 @@
+# Autora: Natalia García
+
 defmodule Trivia.Nivel do
   @doc """
   Función que determina el nivel de un jugador basado en su puntaje total.
