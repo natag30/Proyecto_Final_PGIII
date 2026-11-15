@@ -189,6 +189,8 @@ defmodule Trivia.GestorJugadores do
     end
   end
 
+  def handle_info(_otro, sesiones), do: {:noreply, sesiones}
+
   # Función privada que filtra el historial por tema, devolviendo el historial completo si no se especifica un tema
   defp filtrar_tema(historial, nil), do: historial
 

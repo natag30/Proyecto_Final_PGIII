@@ -125,7 +125,7 @@ defmodule Trivia.Partida do
       jugadores: [creador],
       destinos: %{creador => cliente},
       puntajes: %{creador => 0},
-      sorteo: Map.get(args, :sorteo, &Trivia.BancoPreguntas.sortear/3),
+      sorteo: Map.get(args, :sorteo, &Trivia.BancoPreguntas.sortear_partida/3),
       registrar: Map.get(args, :registrar, &Trivia.Persistencia.registrar_resultado/1),
       gestor: Map.get(args, :gestor, Trivia.GestorPartidas),
       pausa_ms: Map.get(args, :pausa_ms, @pausa_ms)

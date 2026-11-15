@@ -77,7 +77,7 @@ defmodule Trivia.Bot do
 
     # decide la letra a responder y el retardo segun la dificultad y nivel
 
-    {letra, retardo_ms} = decidir(state.dificultad, nivel, ronda.correcta, state.tiempo)
+    {letra, retardo_ms} = decidir(state.dificultad, nivel, ronda.correcta, tiempo)
 
     # envia la respuesta despues del retardo y definiendo  aque ronda pertenece
 
@@ -92,7 +92,5 @@ defmodule Trivia.Bot do
     {:noreply, state}
   end
 
-  def handle_info({_otro, _mensaje}, state) do
-    {:noreply, state}
-  end
+  def handle_info(_otro, state), do: {:noreply, state}
 end
