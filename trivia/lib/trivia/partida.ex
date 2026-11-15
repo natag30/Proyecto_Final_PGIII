@@ -228,13 +228,20 @@ defmodule Trivia.Partida do
 
   def handle_call({:answer, jugador, letra}, _from, state) do
     with :ok <- participa?(state, jugador),
-         {:ok, letra} <- validar_respuesta(state.ronda, jugador, letra) do
+         {:ok, letra} <- validar_respuesta(state.ronda, jugador, letra),
+         :ok <- puede_responder_en_ronda?(state, jugador) do
       restantes = segundos_restantes(state.ronda.inicio_ms, state.tiempo_pregunta)
       respuestas = Map.put(state.ronda.respuestas, jugador, {letra, restantes})
       state = %{state | ronda: %{state.ronda | respuestas: respuestas}}
 
-      # la ronda se cierra antes de tiempo si ya respondieron todos
-      state = if todos_respondieron?(state), do: cerrar_ronda(state), else: state
+      state =
+        if jugador == state.creador do
+          iniciar_respuestas_bots(state, letra)
+        else
+          state
+        end
+
+      state = cerrar_si_corresponde(state)
       {:reply, {:ok, :registrada}, state}
     else
       {:error, _motivo} = error -> {:reply, error, state}
@@ -267,9 +274,12 @@ defmodule Trivia.Partida do
   end
 
   @impl true
-  # solo cierra si el temporizador es de la ronda abierta (ignora los atrasados)
-  def handle_info({:vence_ronda, n}, %{ronda: %{abierta: true, numero: n}} = state),
-    do: {:noreply, cerrar_ronda(state)}
+  # Si el cliente no alcanzo a responder, los bots eligen al vencer el tiempo.
+  def handle_info({:vence_ronda, n}, %{ronda: %{abierta: true, numero: n} = ronda} = state) do
+    state = %{state | ronda: %{ronda | tiempo_agotado: true}}
+    state = iniciar_respuestas_bots(state, nil)
+    {:noreply, cerrar_si_corresponde(state)}
+  end
 
   def handle_info({:vence_ronda, _n}, state), do: {:noreply, state}
 
@@ -321,6 +331,8 @@ defmodule Trivia.Partida do
       pregunta: pregunta,
       inicio_ms: System.monotonic_time(:millisecond),
       respuestas: %{},
+      bots_activados: false,
+      tiempo_agotado: false,
       timer: timer
     }
 
@@ -376,6 +388,55 @@ defmodule Trivia.Partida do
 
   defp todos_respondieron?(state),
     do: map_size(state.ronda.respuestas) >= length(state.jugadores)
+
+  defp todos_los_bots_respondieron?(state) do
+    Enum.all?(Map.keys(state.bots), &Map.has_key?(state.ronda.respuestas, &1))
+  end
+
+  defp cerrar_si_corresponde(state) do
+    if todos_respondieron?(state) or
+         (state.ronda.tiempo_agotado and todos_los_bots_respondieron?(state)) do
+      cerrar_ronda(state)
+    else
+      state
+    end
+  end
+
+  defp iniciar_respuestas_bots(%{ronda: %{bots_activados: true}} = state, _excluida),
+    do: state
+
+  defp iniciar_respuestas_bots(state, excluida) do
+    nivel = a_nivel(campo(state.ronda.pregunta, :nivel))
+
+    Enum.each(state.bots, fn {_jugador, pid} ->
+      send(
+        pid,
+        {:nueva_ronda,
+         %{
+           numero: state.ronda.numero,
+           correcta: campo(state.ronda.pregunta, :respuesta),
+           nivel: nivel,
+           tiempo: 0,
+           excluida: excluida
+         }}
+      )
+    end)
+
+    %{state | ronda: %{state.ronda | bots_activados: true}}
+  end
+
+  defp puede_responder_en_ronda?(state, jugador) do
+    cond do
+      jugador == state.creador and state.ronda.tiempo_agotado ->
+        {:error, :ronda_cerrada}
+
+      Map.has_key?(state.bots, jugador) and not state.ronda.bots_activados ->
+        {:error, :ronda_cerrada}
+
+      true ->
+        :ok
+    end
+  end
 
   defp participa?(state, jugador),
     do: if(jugador in state.jugadores, do: :ok, else: {:error, :no_participa})
@@ -439,19 +500,7 @@ defmodule Trivia.Partida do
     }
 
     Enum.each(state.destinos, fn {jugador, pid} ->
-      if Map.has_key?(state.bots, jugador) do
-        # solo los bots (que viven en el servidor) reciben la respuesta correcta
-        send(
-          pid,
-          {:nueva_ronda,
-           %{
-             numero: numero,
-             correcta: campo(pregunta, :respuesta),
-             nivel: nivel,
-             tiempo: state.tiempo_pregunta
-           }}
-        )
-      else
+      unless Map.has_key?(state.bots, jugador) do
         send(pid, {:pregunta, publica})
       end
     end)

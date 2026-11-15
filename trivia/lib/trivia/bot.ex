@@ -1,11 +1,10 @@
 # Autor: Diego Rincon
 
 defmodule Trivia.Bot do
-  @moduledoc "
-  Jugador automatico. tiene su propio proceso y recibe las mismas notificaciones que el el usuario,
-  tiene ventaja por que sabe la respuesta correcta ya que es parte del servidor
-  responde con retraso ya que estamos utilizando process.send_after.
-  "
+  @moduledoc """
+  Jugador automatico. Espera la respuesta del cliente antes de elegir una opcion
+  distinta a la seleccionada por el cliente.
+  """
 
   use GenServer
 
@@ -26,19 +25,23 @@ defmodule Trivia.Bot do
     Map.get(@aciertos[dificultad], nivel)
   end
 
-  @doc " Devuelve {letra, retardo_ms}. el retardo cae dentro de la ventana de la dificultad."
+  @doc "Devuelve una letra y un retardo segun la dificultad."
   def decidir(dificultad, nivel, correcta, tiempo_pregunta) do
+    decidir(dificultad, nivel, correcta, tiempo_pregunta, nil)
+  end
+
+  def decidir(dificultad, nivel, correcta, tiempo_pregunta, excluida) do
     {ventaja_min, ventaja_max} = @ventaja[dificultad]
     retardo = :rand.uniform() * (ventaja_max - ventaja_min) + ventaja_min
     retardo_ms = trunc(retardo * tiempo_pregunta * 1000)
 
-    if :rand.uniform() <= probabilidad_aciertos(dificultad, nivel) do
-      {correcta, retardo_ms}
-    else
-      incorrectas = @letras -- [correcta]
-      letra_incorrecta = Enum.random(incorrectas)
-      {letra_incorrecta, retardo_ms}
-    end
+    puede_acertar =
+      correcta != excluida and :rand.uniform() <= probabilidad_aciertos(dificultad, nivel)
+
+    opciones = @letras -- [correcta, excluida]
+    letra = if puede_acertar, do: correcta, else: Enum.random(opciones)
+
+    {letra, retardo_ms}
   end
 
   def elegir_letra(correcta, true), do: correcta
@@ -74,10 +77,12 @@ defmodule Trivia.Bot do
     # decide la ronda y timepo que trae su propio nivel
     nivel = Map.get(ronda, :nivel, state.nivel)
     tiempo = Map.get(ronda, :tiempo, state.tiempo_pregunta)
+    excluida = Map.get(ronda, :excluida)
 
     # decide la letra a responder y el retardo segun la dificultad y nivel
 
-    {letra, retardo_ms} = decidir(state.dificultad, nivel, ronda.correcta, tiempo)
+    {letra, retardo_ms} =
+      decidir(state.dificultad, nivel, ronda.correcta, tiempo, excluida)
 
     # envia la respuesta despues del retardo y definiendo  aque ronda pertenece
 
