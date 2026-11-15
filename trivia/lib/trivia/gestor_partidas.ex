@@ -53,7 +53,7 @@ defmodule Trivia.GestorPartidas do
             nivel: nivel,
             total_preguntas: preguntas,
             tiempo_pregunta: tiempo,
-            pid_receptor: pid_receptor
+            cliente: pid_receptor
           }
 
           case Trivia.SupervisorPartidas.iniciar_partida(argumentos) do
@@ -84,6 +84,9 @@ defmodule Trivia.GestorPartidas do
           end
         {:error, :tema_no_disponible} ->
           {:reply, {:error, :tema_no_disponible}, estado}
+
+        otro_error ->
+          {:reply, otro_error, estado}
       end
     end
   end
@@ -133,9 +136,23 @@ defmodule Trivia.GestorPartidas do
             {:reply, {:error, :sin_partida}, estado}
 
           datos_partida ->
-            resultado =
-              Trivia.Partida.agregar_bot(datos_partida.pid, dificultad)
+            dificultad_atom =
+              case dificultad do
+                "facil" -> :facil
+                "medio" -> :medio
+                "dificil" -> :dificil
+                :facil -> :facil
+                :medio -> :medio
+                :dificil -> :dificil
+                _ -> nil
+              end
 
+            resultado =
+              if dificultad_atom do
+                Trivia.Partida.add_bot(datos_partida.pid, dificultad_atom)
+              else
+                {:error, :dificultad_invalida}
+              end
             {:reply, resultado, estado}
         end
     end
@@ -162,7 +179,7 @@ defmodule Trivia.GestorPartidas do
             {:reply, {:error, :sin_partida}, estado}
 
           datos_partida ->
-            resultado = Trivia.Partida.iniciar(datos_partida.pid)
+            resultado = Trivia.Partida.start_game(datos_partida.pid)
 
             {:reply, resultado, estado}
         end
@@ -226,7 +243,7 @@ defmodule Trivia.GestorPartidas do
           datos_partida ->
 
             resultado =
-              Trivia.Partida.abandonar(
+              Trivia.Partida.leave(
                 datos_partida.pid,
                 usuario
               )
@@ -258,7 +275,7 @@ defmodule Trivia.GestorPartidas do
 
           datos_partida ->
             # Aplica la misma regla de abandono
-            Trivia.Partida.abandonar(
+            Trivia.Partida.leave(
               datos_partida.pid,
               usuario
             )
@@ -271,12 +288,12 @@ defmodule Trivia.GestorPartidas do
   def registrar_partida(id, pid) do
     GenServer.cast(
       __MODULE__,
-      {:registrar_partida, id, pid}
+      {:partida_lista, id, pid}
     )
   end
 
   @impl true
-  def handle_cast({:registrar_partida, id, pid}, estado) do
+  def handle_cast({:partida_lista, id, pid}, estado) do
     case Map.get(estado.partidas, id) do
       nil ->
         # Si la partida no existe, no modifica el estado
