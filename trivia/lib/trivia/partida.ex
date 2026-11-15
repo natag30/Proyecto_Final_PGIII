@@ -41,6 +41,20 @@ defmodule Trivia.Partida do
 
   # ----------------- funciones puras -----------------
 
+  @doc "Indica si una partida en espera tiene espacio para agregar otro bot."
+  def puede_agregar_bot?(%{estado: :esperando, jugadores: jugadores})
+      when is_list(jugadores),
+      do: length(jugadores) < @max_jugadores
+
+  def puede_agregar_bot?(_estado), do: false
+
+  @doc "Indica si una partida en espera tiene al menos dos bots y puede comenzar."
+  def puede_iniciar?(%{estado: :esperando, jugadores: jugadores}) when is_list(jugadores) do
+    Enum.count(jugadores, &jugador_bot?/1) >= @min_bots
+  end
+
+  def puede_iniciar?(_estado), do: false
+
   @doc "Puntos de una ronda: puntos del nivel, más bonificación solo si acierta"
   def puntos_ronda(:correcto, nivel, restantes, tiempo) do
     {correcto, _incorrecto} = Map.get(@puntos, nivel)
@@ -84,6 +98,9 @@ defmodule Trivia.Partida do
     do: letra |> String.trim() |> String.upcase()
 
   defp normalizar_letra(_), do: nil
+
+  defp jugador_bot?("bot_" <> _nombre), do: true
+  defp jugador_bot?(_jugador), do: false
 
   # ----------------- API de partida -----------------
 
@@ -157,7 +174,7 @@ defmodule Trivia.Partida do
       state.estado != :esperando ->
         {:reply, {:error, :partida_iniciada}, state}
 
-      length(state.jugadores) >= @max_jugadores ->
+      not puede_agregar_bot?(state) ->
         {:reply, {:error, :partida_llena}, state}
 
       dificultad not in [:facil, :medio, :dificil] ->
@@ -194,7 +211,7 @@ defmodule Trivia.Partida do
       state.estado != :esperando ->
         {:reply, {:error, :partida_iniciada}, state}
 
-      map_size(state.bots) < @min_bots ->
+      not puede_iniciar?(state) ->
         {:reply, {:error, :bots_insuficientes}, state}
 
       true ->
