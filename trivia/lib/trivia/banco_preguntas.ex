@@ -1,3 +1,5 @@
+# Autora: Natalia García
+
 defmodule Trivia.BancoPreguntas do
   @moduledoc """
   Módulo que representa el banco de preguntas de la aplicación Trivia.
