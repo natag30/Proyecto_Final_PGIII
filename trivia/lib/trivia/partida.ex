@@ -80,7 +80,9 @@ defmodule Trivia.Partida do
   defp ronda_abierta?(%{abierta: true}), do: true
   defp ronda_abierta?(_), do: false
 
-  defp normalizar_letra(letra) when is_binary(letra), do: letra |> String.trim() |> String.upcase()
+  defp normalizar_letra(letra) when is_binary(letra),
+    do: letra |> String.trim() |> String.upcase()
+
   defp normalizar_letra(_), do: nil
 
   # ----------------- API de partida -----------------
@@ -149,13 +151,13 @@ defmodule Trivia.Partida do
         nombre = "bot_#{map_size(state.bots) + 1}"
 
         # start_link enlaza el bot a la partida: si se cancela la partida se finaliza y los bots salen de ella
-          Trivia.Bot.start_link(%{
-            nombre: nombre,
-            dificultad: dificultad,
-            nivel: state.nivel,
-            tiempo_pregunta: state.tiempo_pregunta,
-            partida: self()
-          })
+        Trivia.Bot.start_link(%{
+          nombre: nombre,
+          dificultad: dificultad,
+          nivel: state.nivel,
+          tiempo_pregunta: state.tiempo_pregunta,
+          partida: self()
+        })
 
         state = %{
           state

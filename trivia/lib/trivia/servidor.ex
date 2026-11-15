@@ -1,10 +1,9 @@
-#Autor: Carlos Andres
+# Autor: Carlos Andres
 
 defmodule Trivia.Servidor do
-
   use GenServer
 
-  #Nombre del servidor
+  # Nombre del servidor
   def nombre do
     __MODULE__
   end
@@ -25,15 +24,14 @@ defmodule Trivia.Servidor do
   end
 
   def iniciar do
-
-    with  :ok <- iniciar_proceso(Trivia.Persistencia),
-          :ok <- iniciar_proceso(Trivia.BancoPreguntas),
-          :ok <- iniciar_proceso(Trivia.GestorJugadores),
-          :ok <- iniciar_proceso(Trivia.SupervisorPartidas),
-          :ok <- iniciar_proceso(Trivia.GestorPartidas),
-          :ok <- iniciar_proceso(__MODULE__) do
-    :ok
-  end
+    with :ok <- iniciar_proceso(Trivia.Persistencia),
+         :ok <- iniciar_proceso(Trivia.BancoPreguntas),
+         :ok <- iniciar_proceso(Trivia.GestorJugadores),
+         :ok <- iniciar_proceso(Trivia.SupervisorPartidas),
+         :ok <- iniciar_proceso(Trivia.GestorPartidas),
+         :ok <- iniciar_proceso(__MODULE__) do
+      :ok
+    end
   end
 
   defp iniciar_proceso(modulo) do
