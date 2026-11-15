@@ -97,7 +97,7 @@ defmodule Trivia.Partida do
   def start_game(partida), do: GenServer.call(partida, :start_game)
   def answer(partida, jugador, letra), do: GenServer.call(partida, {:answer, jugador, letra})
 
-  # se llama al bot.exs para que responda: como lo va realizando el jugador, no se valida si es correcta o no, solo si es aceptable
+  # se llama al bot.ex para que responda: como lo va realizando el jugador, no se valida si es correcta o no, solo si es aceptable
 
   def responder(partida, jugador, letra), do: answer(partida, jugador, letra)
   def leave(partida, jugador), do: GenServer.call(partida, {:leave, jugador})
