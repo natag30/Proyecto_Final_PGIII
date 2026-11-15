@@ -72,6 +72,11 @@ defmodule Trivia.PartidaTest do
 
     usuario = "integracion_#{System.unique_integer([:positive])}"
 
+    for {preguntas, tiempo} <- [{0, 30}, {-1, 30}, {1, 0}, {1, -5}, {1.5, 30}] do
+      assert {:error, :parametros_invalidos} =
+               Trivia.GestorPartidas.crear(usuario, self(), "ciencia", preguntas, tiempo)
+    end
+
     assert {:ok, %{id: id}} =
              Trivia.GestorPartidas.crear(usuario, self(), "ciencia", 1, 30)
 
@@ -98,7 +103,12 @@ defmodule Trivia.PartidaTest do
           :ok
 
         pid ->
-          if Process.alive?(pid), do: GenServer.stop(pid, :normal)
+          ref = Process.monitor(pid)
+          Process.exit(pid, :kill)
+
+          receive do
+            {:DOWN, ^ref, :process, ^pid, _razon} -> :ok
+          end
       end
     end)
   end
