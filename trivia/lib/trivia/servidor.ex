@@ -138,27 +138,10 @@ defmodule Trivia.Servidor do
   end
 
   @impl true
-  def handle_call(
-        {:score},
-        {pid_cliente, _referencia},
-        estado
-      ) do
-    # Identifica al usuario que realiza la consulta
+  def handle_call({:score}, {pid_cliente, _referencia}, estado) do
     case Trivia.GestorJugadores.usuario_de(pid_cliente) do
       {:ok, usuario} ->
-        # Obtiene la partida asociada al usuario
-        case Trivia.GestorPartidas.partida_de(usuario) do
-          {:ok, pid_partida} ->
-            # Consulta el puntaje directamente en la partida
-            puntajes = Trivia.Partida.puntajes(pid_partida)
-
-            respuesta = {:ok, Map.get(puntajes, usuario, 0)}
-
-            {:reply, respuesta, estado}
-
-          {:error, motivo} ->
-            {:reply, {:error, motivo}, estado}
-        end
+        {:reply, {:ok, Trivia.GestorJugadores.resumen(usuario)}, estado}
 
       {:error, motivo} ->
         {:reply, {:error, motivo}, estado}
@@ -166,15 +149,15 @@ defmodule Trivia.Servidor do
   end
 
   @impl true
-  def handle_call(
-        {:ranking, tema},
-        _desde,
-        estado
-      ) do
-    # Solicita el ranking general o por tema
-    respuesta = Trivia.GestorJugadores.ranking(tema)
+  def handle_call({:ranking, tema}, {pid_cliente, _referencia}, estado) do
+    # Solo un usuario con sesión puede consultar el ranking
+    case Trivia.GestorJugadores.usuario_de(pid_cliente) do
+      {:ok, _usuario} ->
+        {:reply, {:ok, Trivia.GestorJugadores.ranking(tema)}, estado}
 
-    {:reply, respuesta, estado}
+      {:error, motivo} ->
+        {:reply, {:error, motivo}, estado}
+    end
   end
 
   @impl true

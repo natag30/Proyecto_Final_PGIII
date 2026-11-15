@@ -18,6 +18,62 @@ defmodule Trivia.GestorPartidas do
     )
   end
 
+  def partida_de(usuario) do
+    GenServer.call(
+      __MODULE__,
+      {:partida_de, usuario}
+    )
+  end
+
+  def agregar_bot(usuario, dificultad) do
+    GenServer.call(
+      __MODULE__,
+      {:agregar_bot, usuario, dificultad}
+    )
+  end
+
+  def iniciar_partida(usuario) do
+    GenServer.call(
+      __MODULE__,
+      {:iniciar_partida, usuario}
+    )
+  end
+
+  def responder(usuario, letra) do
+    GenServer.call(
+      __MODULE__,
+      {:responder, usuario, letra}
+    )
+  end
+
+  def abandonar(usuario) do
+    GenServer.call(
+      __MODULE__,
+      {:abandonar, usuario}
+    )
+  end
+
+  def cliente_caido(usuario) do
+    GenServer.cast(
+      __MODULE__,
+      {:cliente_caido, usuario}
+    )
+  end
+
+  def registrar_partida(id, pid) do
+    GenServer.cast(
+      __MODULE__,
+      {:partida_lista, id, pid}
+    )
+  end
+
+  def partida_terminada(id) do
+    GenServer.cast(
+      __MODULE__,
+      {:partida_terminada, id}
+    )
+  end
+
   @impl true
   def init(:ok) do
     estado = %{
@@ -87,13 +143,6 @@ defmodule Trivia.GestorPartidas do
     end
   end
 
-  def partida_de(usuario) do
-    GenServer.call(
-      __MODULE__,
-      {:partida_de, usuario}
-    )
-  end
-
   @impl true
   def handle_call({:partida_de, usuario}, _from, estado) do
     case Map.get(estado.por_usuario, usuario) do
@@ -109,13 +158,6 @@ defmodule Trivia.GestorPartidas do
             {:reply, {:ok, datos_partida.pid}, estado}
         end
     end
-  end
-
-  def agregar_bot(usuario, dificultad) do
-    GenServer.call(
-      __MODULE__,
-      {:agregar_bot, usuario, dificultad}
-    )
   end
 
   @impl true
@@ -153,13 +195,6 @@ defmodule Trivia.GestorPartidas do
     end
   end
 
-  def iniciar_partida(usuario) do
-    GenServer.call(
-      __MODULE__,
-      {:iniciar_partida, usuario}
-    )
-  end
-
   @impl true
   def handle_call({:iniciar_partida, usuario}, _from, estado) do
     case Map.get(estado.por_usuario, usuario) do
@@ -177,13 +212,6 @@ defmodule Trivia.GestorPartidas do
             {:reply, resultado, estado}
         end
     end
-  end
-
-  def responder(usuario, letra) do
-    GenServer.call(
-      __MODULE__,
-      {:responder, usuario, letra}
-    )
   end
 
   @impl true
@@ -211,13 +239,6 @@ defmodule Trivia.GestorPartidas do
     end
   end
 
-  def abandonar(usuario) do
-    GenServer.call(
-      __MODULE__,
-      {:abandonar, usuario}
-    )
-  end
-
   @impl true
   def handle_call({:abandonar, usuario}, _from, estado) do
     case Map.get(estado.por_usuario, usuario) do
@@ -239,13 +260,6 @@ defmodule Trivia.GestorPartidas do
             {:reply, resultado, estado}
         end
     end
-  end
-
-  def cliente_caido(usuario) do
-    GenServer.cast(
-      __MODULE__,
-      {:cliente_caido, usuario}
-    )
   end
 
   @impl true
@@ -271,13 +285,6 @@ defmodule Trivia.GestorPartidas do
             {:noreply, estado}
         end
     end
-  end
-
-  def registrar_partida(id, pid) do
-    GenServer.cast(
-      __MODULE__,
-      {:partida_lista, id, pid}
-    )
   end
 
   @impl true
@@ -315,13 +322,6 @@ defmodule Trivia.GestorPartidas do
           {:noreply, nuevo_estado}
         end
     end
-  end
-
-  def partida_terminada(id) do
-    GenServer.cast(
-      __MODULE__,
-      {:partida_terminada, id}
-    )
   end
 
   @impl true

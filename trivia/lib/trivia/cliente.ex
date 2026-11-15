@@ -9,7 +9,8 @@ defmodule Trivia.Cliente do
         leer_comandos()
 
       :error ->
-        IO.puts("No fue posible conectar con el servidor")
+        IO.puts(Trivia.Errores.mensaje(:servidor_no_disponible))
+        {:error, :servidor_no_disponible}
     end
   end
 
@@ -22,130 +23,84 @@ defmodule Trivia.Cliente do
   end
 
   defp leer_comandos do
-    comando = IO.gets("\nTrivia > ")
+    case IO.gets("\nTrivia > ") do
+      texto when is_binary(texto) ->
+        case texto |> String.trim() |> procesar_comando() do
+          :salir -> IO.puts("\nCliente cerrado.")
+          _ -> leer_comandos()
+        end
 
-    case comando do
-      nil ->
-        IO.puts("Cerrando cliente...")
-
-      comando ->
-        comando
-        |> String.trim()
-        |> procesar_comando()
-
-        leer_comandos()
+      _fin_de_entrada ->
+        IO.puts("\nCerrando cliente...")
     end
   end
 
   # Procesa el texto ingresado por el jugador.
   defp procesar_comando(comando) do
     case parsear_comando(comando) do
-      {:error, :comando_vacio} ->
-        IO.puts("Debes escribir un comando.")
+      {:error, motivo} ->
+        IO.puts("\n" <> Trivia.Errores.mensaje(motivo))
 
-      {:error, :comando_desconocido} ->
-        IO.puts("El comando no existe.")
-
-      {:error, :uso_incorrecto} ->
-        IO.puts("Los argumentos del comando son incorrectos.")
-
-      {:create_game, tema, preguntas, tiempo} ->
+      {:ok, {:create_game, tema, preguntas, tiempo} = peticion} ->
         case iniciar_receptor() do
           {:ok, pid_receptor} ->
-            respuesta =
-              enviar({
-                :create_game,
-                tema,
-                preguntas,
-                tiempo,
-                pid_receptor
-              })
-
-            mostrar_respuesta("create_game", respuesta)
+            respuesta = enviar({:create_game, tema, preguntas, tiempo, pid_receptor})
+            mostrar_respuesta(peticion, respuesta)
 
           {:error, motivo} ->
             IO.inspect(motivo, label: "Error al iniciar receptor")
         end
 
-      {:connect, usuario, clave} ->
-        respuesta = enviar({:connect, usuario, clave})
-        mostrar_respuesta("connect", respuesta)
+      {:ok, peticion} ->
+        respuesta = enviar(peticion)
+        mostrar_respuesta(peticion, respuesta)
 
-      {:add_bot, dificultad} ->
-        respuesta = enviar({:add_bot, dificultad})
-        mostrar_respuesta("add_bot", respuesta)
-
-      {:start_game} ->
-        respuesta = enviar({:start_game})
-        mostrar_respuesta("start_game", respuesta)
-
-      {:answer, letra} ->
-        respuesta = enviar({:answer, letra})
-        mostrar_respuesta("answer", respuesta)
-
-      {:score} ->
-        respuesta = enviar({:score})
-        mostrar_respuesta("score", respuesta)
-
-      {:ranking, tema} ->
-        respuesta = enviar({:ranking, tema})
-        mostrar_respuesta("ranking", respuesta)
-
-      {:leave_game} ->
-        respuesta = enviar({:leave_game})
-        mostrar_respuesta("leave_game", respuesta)
-
-      {:disconnect} ->
-        respuesta = enviar({:disconnect})
-        mostrar_respuesta("disconnect", respuesta)
-
-      peticion ->
-        IO.inspect(peticion, label: "Petición interpretada")
+        if peticion == {:disconnect} and respuesta == :ok, do: :salir, else: :continuar
     end
   end
 
   def parsear_comando(comando) do
-    case String.split(String.trim(comando), ~r/\s+/, trim: true) do
+    case String.split(comando, ~r/\s+/, trim: true) do
       ["connect", usuario, clave] ->
-        {:connect, usuario, clave}
+        {:ok, {:connect, usuario, clave}}
 
       ["create_game", "tema=" <> tema, "preguntas=" <> preguntas, "tiempo=" <> tiempo] ->
         with {:ok, cantidad} <- convertir_entero(preguntas),
              {:ok, segundos} <- convertir_entero(tiempo) do
-          {:create_game, tema, cantidad, segundos}
+          {:ok, {:create_game, tema, cantidad, segundos}}
         else
-          _ -> {:error, :uso_incorrecto}
+          _ -> {:error, :comando_invalido}
         end
 
-      ["add_bot", dificultad] when dificultad in ["facil", "dificil"] ->
-        {:add_bot, dificultad}
+      ["add_bot", "facil"] ->
+        {:ok, {:add_bot, :facil}}
+
+      ["add_bot", "dificil"] ->
+        {:ok, {:add_bot, :dificil}}
 
       ["start_game"] ->
-        {:start_game}
+        {:ok, {:start_game}}
 
       ["answer", letra] ->
-        {:answer, String.upcase(letra)}
+        {:ok, {:answer, String.upcase(letra)}}
 
       ["score"] ->
-        {:score}
+        {:ok, {:score}}
 
       ["ranking"] ->
-        {:ranking, nil}
+        {:ok, {:ranking, nil}}
 
       ["ranking", tema] ->
-        {:ranking, tema}
+        {:ok, {:ranking, tema}}
 
       ["leave_game"] ->
-        {:leave_game}
+        {:ok, {:leave_game}}
 
       ["disconnect"] ->
-        {:disconnect}
-
-      [] ->
-        {:error, :comando_vacio}
+        {:ok, {:disconnect}}
 
       _ ->
-        {:error, :comando_desconocido}
+        {:error, :comando_invalido}
     end
   end
 
@@ -157,10 +112,9 @@ defmodule Trivia.Cliente do
   end
 
   def enviar(peticion) do
-    GenServer.call(
-      {Trivia.Servidor.nombre(), nodo_servidor()},
-      peticion
-    )
+    GenServer.call({Trivia.Servidor.nombre(), nodo_servidor()}, peticion)
+  catch
+    :exit, _ -> {:error, :servidor_no_disponible}
   end
 
   # Obtiene el nodo del servidor al que está conectado el cliente.
@@ -179,42 +133,64 @@ defmodule Trivia.Cliente do
     end
   end
 
-  def mostrar_respuesta(comando, respuesta) do
-    case respuesta do
-      {:ok, resultado} ->
-        IO.puts("\nOperación realizada correctamente.")
-        IO.inspect(resultado, label: comando)
+  def mostrar_respuesta({:connect, _, _}, {:ok, :registrado}),
+    do: IO.puts("\nUsuario nuevo registrado. Sesión iniciada.")
 
-      {:error, motivo} ->
-        IO.puts("\nNo se pudo realizar la operación.")
-        IO.inspect(motivo, label: "Error")
+  def mostrar_respuesta({:connect, _, _}, {:ok, :existente}),
+    do: IO.puts("\nSesión iniciada.")
 
-      otra_respuesta ->
-        IO.inspect(otra_respuesta, label: "Respuesta del servidor")
-    end
-  end
+  def mostrar_respuesta({:add_bot, _}, {:ok, nombre}),
+    do: IO.puts("\nBot #{nombre} agregado a la partida.")
+
+  def mostrar_respuesta({:answer, _}, {:ok, :registrada}), do: IO.puts("\nRespuesta registrada.")
+
+  def mostrar_respuesta({:answer, _}, {:ok, :ignorada}),
+    do: IO.puts("\nYa habías respondido a esta pregunta; se ignora.")
+
+  def mostrar_respuesta({:start_game}, :ok), do: IO.puts("\nLa partida comenzó.")
+  def mostrar_respuesta({:leave_game}, :ok), do: IO.puts("\nHas abandonado la partida.")
+  def mostrar_respuesta({:disconnect}, :ok), do: IO.puts("\nSesión cerrada.")
+  def mostrar_respuesta(_peticion, :ok), do: IO.puts("\nListo.")
 
   def mostrar_resumen(resumen) do
-    IO.puts("\n========== RESUMEN DE PARTIDA ==========")
+    IO.puts("\nJugador: #{resumen.usuario}")
+    IO.puts("Puntaje total: #{resumen.total}")
+    IO.puts("Partidas jugadas: #{resumen.partidas}")
 
-    IO.inspect(
-      resumen,
-      label: "Información de la partida",
-      pretty: true
-    )
+    case Enum.sort(resumen.niveles) do
+      [] ->
+        IO.puts("Aún no tienes nivel en ningún tema.")
 
-    IO.puts("========================================")
+      niveles ->
+        IO.puts("Nivel por tema:")
+
+        Enum.each(niveles, fn {tema, nivel} ->
+          IO.puts("  " <> String.pad_trailing(tema, 14) <> "#{nivel}")
+        end)
+    end
+
+    :ok
   end
 
-  def mostrar_ranking(ranking) do
-    IO.puts("\n========== RANKING DE TRIVIA ==========")
+  def mostrar_ranking([]), do: IO.puts("\nTodavía no hay partidas en el ranking.")
 
-    IO.inspect(
-      ranking,
-      label: "Clasificación de jugadores",
-      pretty: true
+  def mostrar_ranking(filas) do
+    IO.puts(
+      "\n" <>
+        String.pad_trailing("#", 6) <> String.pad_trailing("Jugador", 15) <> "Puntaje  Partidas"
     )
 
-    IO.puts("=======================================")
+    filas
+    |> Enum.with_index(1)
+    |> Enum.each(fn {fila, posicion} ->
+      IO.puts(
+        String.pad_trailing("#{posicion}", 6) <>
+          String.pad_trailing(fila.usuario, 15) <>
+          String.pad_leading("#{fila.puntaje}", 7) <>
+          String.pad_leading("#{fila.partidas}", 10)
+      )
+    end)
+
+    :ok
   end
 end
