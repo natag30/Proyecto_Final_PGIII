@@ -1,13 +1,13 @@
 # Autor: Diego Rincon
 
-Code.require_file("bot.exs", __DIR__)
+Code.require_file("bot.ex", __DIR__)
 
 defmodule Trivia.Partida do
-  @moduledoc """
+  @moduledoc "
   Módulo que representa una partida de trivia.
   Maneja rondas, temporizador, validación de respuestas, puntaje, abandono y ranking final.
   La lógica de puntaje y validación es pura para poder probarla sin arrancar procesos.
-  """
+  "
 
   use GenServer, restart: :transient
 
@@ -16,6 +16,7 @@ defmodule Trivia.Partida do
   @max_jugadores 4
   @min_bots 2
   @pausa_ms 3_000
+  @tiempo_max_partida_ms 5 * 60 * 1000
 
   defstruct [
     :id,
@@ -29,6 +30,7 @@ defmodule Trivia.Partida do
     :registrar,
     :gestor,
     :pausa_ms,
+    :time_partida,
     estado: :esperando,
     pregunta_actual: 0,
     jugadores: [],
@@ -80,7 +82,9 @@ defmodule Trivia.Partida do
   defp ronda_abierta?(%{abierta: true}), do: true
   defp ronda_abierta?(_), do: false
 
-  defp normalizar_letra(letra) when is_binary(letra), do: letra |> String.trim() |> String.upcase()
+  defp normalizar_letra(letra) when is_binary(letra),
+    do: letra |> String.trim() |> String.upcase()
+
   defp normalizar_letra(_), do: nil
 
   # ----------------- API de partida -----------------
@@ -127,6 +131,16 @@ defmodule Trivia.Partida do
       pausa_ms: Map.get(args, :pausa_ms, @pausa_ms)
     }
 
+    # tiempo máximo de la partida completa
+    timer_partida =
+      Process.send_after(
+        self(),
+        :tiempo_agotado,
+        Map.get(args, :tiempo_max_partida_ms, @tiempo_max_partida_ms)
+      )
+
+    state = %{state | timer_partida: timer_partida}
+
     # con cast, no con call: el gestor esta esperando al supervisor y se bloquearia
     if state.gestor, do: GenServer.cast(state.gestor, {:partida_lista, state.id, self()})
 
@@ -148,14 +162,16 @@ defmodule Trivia.Partida do
       true ->
         nombre = "bot_#{map_size(state.bots) + 1}"
 
-        # start_link enlaza el bot a la partida: si se cancela la partida se finaliza y los bots salen de ella
-          Trivia.Bot.start_link(%{
-            nombre: nombre,
-            dificultad: dificultad,
-            nivel: state.nivel,
-            tiempo_pregunta: state.tiempo_pregunta,
-            partida: self()
-          })
+        # start_link enlaza el bot a la partida: si la partida termina, los bots también
+        opciones = %{
+          nombre: nombre,
+          dificultad: dificultad,
+          nivel: state.nivel,
+          tiempo_pregunta: state.tiempo_pregunta,
+          partida: self()
+        }
+
+        {:ok, pid} = Trivia.Bot.start_link(opciones)
 
         state = %{
           state
@@ -236,6 +252,16 @@ defmodule Trivia.Partida do
   def handle_info({:siguiente_ronda, _n}, state), do: {:noreply, state}
 
   def handle_info(:terminar, state), do: {:stop, :normal, state}
+
+  # se agotó el tiempo máximo de la partida
+  def handle_info(:tiempo_agotado, %{estado: :en_curso} = state),
+    do: {:noreply, terminar_por_abandono(state)}
+
+  def handle_info(:tiempo_agotado, %{estado: :esperando} = state),
+    do: {:stop, :normal, state}
+
+  def handle_info(:tiempo_agotado, state), do: {:noreply, state}
+
 
   # el cliente se cayo o se cerro: se aplica la regla de abandono (seccion 6.5)
   def handle_info({:DOWN, _ref, :process, pid, _razon}, %{cliente: pid} = state) do
@@ -338,6 +364,7 @@ defmodule Trivia.Partida do
   defp terminar_por_abandono(state), do: state
 
   defp finalizar(state) do
+    if state.timer_partida, do: Process.cancel_timer(state.timer_partida)
     ranking = Enum.sort_by(state.puntajes, fn {jugador, puntos} -> {-puntos, jugador} end)
     {_, mejor} = hd(ranking)
 
