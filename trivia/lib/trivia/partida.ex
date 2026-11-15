@@ -30,7 +30,7 @@ defmodule Trivia.Partida do
     :registrar,
     :gestor,
     :pausa_ms,
-    :time_partida,
+    :timer_partida,
     estado: :esperando,
     pregunta_actual: 0,
     jugadores: [],
