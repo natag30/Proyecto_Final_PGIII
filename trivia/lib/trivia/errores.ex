@@ -73,7 +73,7 @@ defmodule Trivia.Errores do
     do: "No participas en esta partida."
 
   def mensaje(:dificultad_invalida),
-    do: "La dificultad no es válida. Usa facil, medio o dificil."
+    do: "La dificultad no es válida. Usa facil o dificil."
 
   def mensaje(:parametros_invalidos),
     do: "La cantidad de preguntas y el tiempo deben ser enteros mayores que cero."
