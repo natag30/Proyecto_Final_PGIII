@@ -144,7 +144,10 @@ defmodule Trivia.Partida do
     state = %{state | timer_partida: timer_partida}
 
     # con cast, no con call: el gestor esta esperando al supervisor y se bloquearia
-    if state.gestor, do: GenServer.cast(state.gestor, {:registrar_partida, state.id, self()})
+    if state.gestor do
+      GenServer.cast(state.gestor, {:partida_lista, state.id, self()})
+    end
+
     {:ok, state}
   end
 

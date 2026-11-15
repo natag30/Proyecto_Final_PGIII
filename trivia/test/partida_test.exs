@@ -1,90 +1,115 @@
 # Autor: Carlos Andres
 
 defmodule Trivia.PartidaTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: false
 
-  test "permite agregar un bot cuando hay espacio" do
-    estado = %{
-      estado: :esperando,
-      jugadores: ["carlos"]
+  @pregunta %{
+    nivel: :basico,
+    enunciado: "Pregunta de prueba",
+    opciones: %{"A" => "Correcta", "B" => "Incorrecta", "C" => "Incorrecta", "D" => "Incorrecta"},
+    respuesta: "A"
+  }
+
+  setup do
+    argumentos = %{
+      id: "P-test",
+      creador: "carlos",
+      tema: "ciencia",
+      nivel: :basico,
+      total_preguntas: 1,
+      tiempo_pregunta: 30,
+      cliente: self(),
+      gestor: nil,
+      sorteo: fn _tema, _nivel, _total -> {:ok, [@pregunta]} end,
+      registrar: fn _resultado -> :ok end,
+      tiempo_max_partida_ms: 60_000
     }
 
-    assert Trivia.Partida.puede_agregar_bot?(estado) == true
+    {:ok, partida} = Trivia.Partida.start_link(argumentos)
+
+    on_exit(fn ->
+      if Process.alive?(partida) do
+        bots = Trivia.Partida.estado(partida).bots |> Map.values()
+        GenServer.stop(partida, :normal)
+
+        Enum.each(bots, fn bot ->
+          if Process.alive?(bot), do: Process.exit(bot, :kill)
+        end)
+      end
+    end)
+
+    {:ok, partida: partida}
   end
 
-  test "no permite agregar un bot cuando hay cuatro jugadores" do
-    estado = %{
-      estado: :esperando,
-      jugadores: ["carlos", "ana", "bot_1", "bot_2"]
-    }
-
-    assert Trivia.Partida.puede_agregar_bot?(estado) == false
+  test "agrega un bot cuando hay espacio", %{partida: partida} do
+    assert {:ok, "bot_1"} = Trivia.Partida.add_bot(partida, :facil)
+    assert "bot_1" in Trivia.Partida.estado(partida).jugadores
   end
 
-  test "no permite agregar un bot cuando la partida está en curso" do
-    estado = %{
-      estado: :en_curso,
-      jugadores: ["carlos"]
-    }
-
-    assert Trivia.Partida.puede_agregar_bot?(estado) == false
+  test "rechaza una dificultad inválida", %{partida: partida} do
+    assert {:error, :dificultad_invalida} = Trivia.Partida.add_bot(partida, :experto)
   end
 
-  test "no permite agregar un bot cuando la partida está finalizada" do
-    estado = %{
-      estado: :finalizada,
-      jugadores: ["carlos"]
-    }
-
-    assert Trivia.Partida.puede_agregar_bot?(estado) == false
+  test "rechaza agregar bots cuando se alcanza el máximo de jugadores", %{partida: partida} do
+    assert {:ok, "bot_1"} = Trivia.Partida.add_bot(partida, :facil)
+    assert {:ok, "bot_2"} = Trivia.Partida.add_bot(partida, :medio)
+    assert {:ok, "bot_3"} = Trivia.Partida.add_bot(partida, :dificil)
+    assert {:error, :partida_llena} = Trivia.Partida.add_bot(partida, :facil)
   end
 
-  # ==========================================
-  # PRUEBAS DE PUEDE_INICIAR?/1
-  # ==========================================
+  test "requiere dos bots para iniciar y no admite agregar más después", %{partida: partida} do
+    assert {:error, :bots_insuficientes} = Trivia.Partida.start_game(partida)
 
-  test "permite iniciar cuando hay dos bots y la partida está esperando" do
-    estado = %{
-      estado: :esperando,
-      jugadores: ["carlos", "bot_1", "bot_2"]
-    }
-
-    assert Trivia.Partida.puede_iniciar?(estado) == true
+    assert {:ok, "bot_1"} = Trivia.Partida.add_bot(partida, :facil)
+    assert {:ok, "bot_2"} = Trivia.Partida.add_bot(partida, :medio)
+    assert :ok = Trivia.Partida.start_game(partida)
+    assert {:error, :partida_iniciada} = Trivia.Partida.add_bot(partida, :dificil)
   end
 
-  test "no permite iniciar cuando no hay bots" do
-    estado = %{
-      estado: :esperando,
-      jugadores: ["carlos", "ana"]
-    }
+  test "crear una partida registra su proceso sin tumbar al gestor" do
+    on_exit(fn -> detener_servicios() end)
+    assert :ok = Trivia.Servidor.iniciar()
 
-    assert Trivia.Partida.puede_iniciar?(estado) == false
+    usuario = "integracion_#{System.unique_integer([:positive])}"
+
+    for {preguntas, tiempo} <- [{0, 30}, {-1, 30}, {1, 0}, {1, -5}, {1.5, 30}] do
+      assert {:error, :parametros_invalidos} =
+               Trivia.GestorPartidas.crear(usuario, self(), "ciencia", preguntas, tiempo)
+    end
+
+    assert {:ok, %{id: id}} =
+             Trivia.GestorPartidas.crear(usuario, self(), "ciencia", 1, 30)
+
+    gestor = Process.whereis(Trivia.GestorPartidas)
+    assert is_pid(gestor)
+    assert Process.alive?(gestor)
+    assert {:ok, partida} = Trivia.GestorPartidas.partida_de(usuario)
+    assert Process.alive?(partida)
+    assert Trivia.Partida.estado(partida).id == id
   end
 
-  test "no permite iniciar cuando solamente hay un bot" do
-    estado = %{
-      estado: :esperando,
-      jugadores: ["carlos", "bot_1"]
-    }
+  defp detener_servicios do
+    [
+      Trivia.Servidor,
+      Trivia.GestorPartidas,
+      Trivia.SupervisorPartidas,
+      Trivia.GestorJugadores,
+      Trivia.BancoPreguntas,
+      Trivia.Persistencia
+    ]
+    |> Enum.each(fn nombre ->
+      case Process.whereis(nombre) do
+        nil ->
+          :ok
 
-    assert Trivia.Partida.puede_iniciar?(estado) == false
-  end
+        pid ->
+          ref = Process.monitor(pid)
+          Process.exit(pid, :kill)
 
-  test "no permite iniciar cuando hay dos bots pero la partida está en curso" do
-    estado = %{
-      estado: :en_curso,
-      jugadores: ["carlos", "bot_1", "bot_2"]
-    }
-
-    assert Trivia.Partida.puede_iniciar?(estado) == false
-  end
-
-  test "no permite iniciar cuando hay dos bots pero la partida está finalizada" do
-    estado = %{
-      estado: :finalizada,
-      jugadores: ["carlos", "bot_1", "bot_2"]
-    }
-
-    assert Trivia.Partida.puede_iniciar?(estado) == false
+          receive do
+            {:DOWN, ^ref, :process, ^pid, _razon} -> :ok
+          end
+      end
+    end)
   end
 end

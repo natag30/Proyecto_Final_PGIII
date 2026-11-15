@@ -67,7 +67,11 @@ defmodule Trivia.Cliente do
       ["create_game", "tema=" <> tema, "preguntas=" <> preguntas, "tiempo=" <> tiempo] ->
         with {:ok, cantidad} <- convertir_entero(preguntas),
              {:ok, segundos} <- convertir_entero(tiempo) do
-          {:ok, {:create_game, tema, cantidad, segundos}}
+          if cantidad > 0 and segundos > 0 do
+            {:ok, {:create_game, tema, cantidad, segundos}}
+          else
+            {:error, :parametros_invalidos}
+          end
         else
           _ -> {:error, :comando_invalido}
         end

@@ -86,6 +86,15 @@ defmodule Trivia.GestorPartidas do
   end
 
   @impl true
+  def handle_call(
+        {:crear, _usuario, _pid_receptor, _tema, preguntas, tiempo},
+        _from,
+        estado
+      )
+      when not is_integer(preguntas) or preguntas <= 0 or not is_integer(tiempo) or tiempo <= 0 do
+    {:reply, {:error, :parametros_invalidos}, estado}
+  end
+
   def handle_call({:crear, usuario, pid_receptor, tema, preguntas, tiempo}, _from, estado) do
     # Revisa si el usuario ya está en una partida
     if Map.has_key?(estado.por_usuario, usuario) do
