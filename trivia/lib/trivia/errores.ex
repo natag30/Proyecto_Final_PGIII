@@ -1,3 +1,5 @@
+# Autora: Natalia García
+
 defmodule Trivia.Errores do
   @moduledoc """
   Módulo que contiene los mensajes de error para la aplicación Trivia.
