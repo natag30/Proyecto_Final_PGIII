@@ -1,10 +1,11 @@
-#Autor: Carlos Andres
+# Autor: Carlos Andres
 
 defmodule Trivia.SupervisorPartidas do
   use DynamicSupervisor
 
   def start_link(_opciones) do
-    DynamicSupervisor.start_link(#Dependo del nombre y argumentos
+    # Dependo del nombre y argumentos
+    DynamicSupervisor.start_link(
       __MODULE__,
       :ok,
       name: __MODULE__
@@ -13,9 +14,7 @@ defmodule Trivia.SupervisorPartidas do
 
   @impl true
   def init(:ok) do
-    DynamicSupervisor.init(
-      strategy: :one_for_one
-    )
+    DynamicSupervisor.init(strategy: :one_for_one)
   end
 
   def iniciar_partida(args) do

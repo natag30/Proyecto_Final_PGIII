@@ -1,4 +1,4 @@
-#Autor: Carlos Andres
+# Autor: Carlos Andres
 
 defmodule Trivia.GestorPartidas do
   use GenServer
@@ -18,7 +18,6 @@ defmodule Trivia.GestorPartidas do
     )
   end
 
-
   @impl true
   def init(:ok) do
     estado = %{
@@ -32,18 +31,14 @@ defmodule Trivia.GestorPartidas do
 
   @impl true
   def handle_call({:crear, usuario, pid_receptor, tema, preguntas, tiempo}, _from, estado) do
-
-    if Map.has_key?(estado.por_usuario, usuario) do #Revisa si el usuario ya está en una partida
-
+    # Revisa si el usuario ya está en una partida
+    if Map.has_key?(estado.por_usuario, usuario) do
       {:reply, {:error, :ya_en_partida}, estado}
-
     else
-
       nivel = Trivia.GestorJugadores.nivel_en_tema(usuario, tema)
 
       case Trivia.BancoPreguntas.validar_tema(tema, nivel, preguntas) do
         :ok ->
-
           id = "P-#{estado.siguiente_id}"
 
           argumentos = %{
@@ -58,8 +53,8 @@ defmodule Trivia.GestorPartidas do
 
           case Trivia.SupervisorPartidas.iniciar_partida(argumentos) do
             {:ok, pid} ->
-
-              por_usuario = Map.put(estado.por_usuario, usuario, id)  #Conecta al usuario con la partida creada
+              # Conecta al usuario con la partida creada
+              por_usuario = Map.put(estado.por_usuario, usuario, id)
 
               datos_partida = %{
                 pid: pid,
@@ -72,9 +67,9 @@ defmodule Trivia.GestorPartidas do
 
               nuevo_estado = %{
                 estado
-                |por_usuario: por_usuario,
-                partidas: partidas,
-                siguiente_id: estado.siguiente_id + 1
+                | por_usuario: por_usuario,
+                  partidas: partidas,
+                  siguiente_id: estado.siguiente_id + 1
               }
 
               {:reply, {:ok, %{id: id, nivel: nivel}}, nuevo_estado}
@@ -82,12 +77,12 @@ defmodule Trivia.GestorPartidas do
             {:error, motivo} ->
               {:reply, {:error, motivo}, estado}
           end
+
         {:error, :tema_no_disponible} ->
           {:reply, {:error, :tema_no_disponible}, estado}
       end
     end
   end
-
 
   def partida_de(usuario) do
     GenServer.call(
@@ -122,7 +117,6 @@ defmodule Trivia.GestorPartidas do
 
   @impl true
   def handle_call({:agregar_bot, usuario, dificultad}, _from, estado) do
-
     case Map.get(estado.por_usuario, usuario) do
       nil ->
         {:reply, {:error, :sin_partida}, estado}
@@ -150,13 +144,11 @@ defmodule Trivia.GestorPartidas do
 
   @impl true
   def handle_call({:iniciar_partida, usuario}, _from, estado) do
-
     case Map.get(estado.por_usuario, usuario) do
       nil ->
         {:reply, {:error, :sin_partida}, estado}
 
       id_partida ->
-
         case Map.get(estado.partidas, id_partida) do
           nil ->
             {:reply, {:error, :sin_partida}, estado}
@@ -178,13 +170,11 @@ defmodule Trivia.GestorPartidas do
 
   @impl true
   def handle_call({:responder, usuario, letra}, _from, estado) do
-
     case Map.get(estado.por_usuario, usuario) do
       nil ->
         {:reply, {:error, :sin_partida}, estado}
 
       id_partida ->
-
         case Map.get(estado.partidas, id_partida) do
           nil ->
             {:reply, {:error, :sin_partida}, estado}
@@ -212,29 +202,26 @@ defmodule Trivia.GestorPartidas do
 
   @impl true
   def handle_call({:abandonar, usuario}, _from, estado) do
-
     case Map.get(estado.por_usuario, usuario) do
       nil ->
         {:reply, {:error, :sin_partida}, estado}
 
       id_partida ->
-
         case Map.get(estado.partidas, id_partida) do
           nil ->
             {:reply, {:error, :sin_partida}, estado}
 
           datos_partida ->
-
             resultado =
               Trivia.Partida.abandonar(
                 datos_partida.pid,
                 usuario
               )
+
             {:reply, resultado, estado}
         end
     end
   end
-
 
   def cliente_caido(usuario) do
     GenServer.cast(
@@ -291,11 +278,12 @@ defmodule Trivia.GestorPartidas do
           # Actualiza el PID de la partida
           nuevos_datos = %{datos_partida | pid: pid}
 
-          partidas = Map.put(
-            estado.partidas,
-            id,
-            nuevos_datos
-          )
+          partidas =
+            Map.put(
+              estado.partidas,
+              id,
+              nuevos_datos
+            )
 
           # Notifica al creador que su partida se reinició
           send(

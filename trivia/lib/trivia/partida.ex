@@ -262,7 +262,6 @@ defmodule Trivia.Partida do
 
   def handle_info(:tiempo_agotado, state), do: {:noreply, state}
 
-
   # el cliente se cayo o se cerro: se aplica la regla de abandono (seccion 6.5)
   def handle_info({:DOWN, _ref, :process, pid, _razon}, %{cliente: pid} = state) do
     case state.estado do
