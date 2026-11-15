@@ -9,9 +9,9 @@ defmodule Trivia.Partida do
 
   use GenServer, restart: :transient
 
-  @puntos %{basico: {10, -5}, intermedio: {20, -10}, avanzado: {30, -15}}
+  @puntos %{basico: {10, -5}, intermedio: {15, -8}, avanzado: {20, -10}}
   @letras ["A", "B", "C", "D"]
-  @max_jugadores 8
+  @max_jugadores 4
   @min_bots 2
   @pausa_ms 3_000
 
@@ -37,91 +37,129 @@ defmodule Trivia.Partida do
     ronda: nil
   ]
 
-  # ----------------- funciones -----------------
+  # ----------------- funciones puras -----------------
 
-  @doc "Puntos de una ronda: puntos de aciertos"
-
-  def puntos_rond(:correcto,nivel,restantes,tiemoo) do
-    {correcto, _incorrecto} =map.get(@puntos, nivel)
-    correcto + bonificacion_tiempo(restantes, tiempo)
+  @doc "Puntos de una ronda: puntos del nivel, más bonificación solo si acierta"
+  def puntos_ronda(:correcto, nivel, restantes, tiempo) do
+    {correcto, _incorrecto} = Map.get(@puntos, nivel)
+    correcto + bonificacion(restantes, tiempo)
   end
 
-  def puntos_ronda(:incorrecto, nivel,_restantes, tiempo) do
+  def puntos_ronda(:incorrecto, nivel, _restantes, _tiempo) do
     {_correcto, incorrecto} = Map.get(@puntos, nivel)
-    incorrecto + bonificacion_tiempo(restantes, tiempo)
+    incorrecto
   end
 
+  def puntos_ronda(:sin_responder, _nivel, _restantes, _tiempo), do: 0
 
-  def puntos_ronda(:sin_responder,_nivel,_restantes,_tiempo), do: 0
-
-  @doc "bonificacion = trunc(5* segundos_restantes/tiempo_pregunta),entre 0 y 5"
-  def bonificacion(restantes, tiempo)when tiempo > 0 do
+  @doc "bonificacion = trunc(5 * segundos_restantes / tiempo_pregunta), entre 0 y 5"
+  def bonificacion(restantes, tiempo) when tiempo > 0 do
+    restantes = restantes |> max(0) |> min(tiempo)
     trunc(5 * restantes / tiempo)
   end
 
-  @doc"se valida la respuesta contra el estado de la ronda(un mapa con :abierta y :respuesta).
-  se devuelve {:ok, letra} o {:error, motivo}. no se modifica nada una letra invalidada no consume la respuesta del jugador,
-  pero si se valida una letra correcta o incorrecta se consume la respuesta y se actualiza el puntaje."
+  @doc """
+  Valida si una respuesta se acepta (no si es correcta). Recibe el estado de la ronda
+  (un mapa con :abierta y :respuestas). Devuelve {:ok, letra} o {:error, motivo}.
+  No modifica nada: una letra inválida no consume la respuesta del jugador.
+  """
+  def validar_respuesta(ronda, jugador, letra) do
+    letra = normalizar_letra(letra)
 
-  def validar_respuesta(%{ronda: %{abierta: false}}, _letra), do: {:error, :ronda_cerrada}
-  def validar_respuesta(%{ronda: %{respuesta: correcta}}, letra) when letra == correcta, do: {:ok, letra}
-  def validar_respuesta(%{ronda: %{respuesta: correcta}}, letra) when letra in @letras and letra != correcta, do: {:error, :incorrecta}
-  def validar_respuesta(_partida, _letra), do: {:error, :letra_invalida}
-
-  cond do
-    not ronda_abierta -> {:error, :ronda_cerrada}
-    letra == correcta -> {:ok, letra}
-    letra in @letras and letra != correcta -> {:error, :incorrecta}
-    true -> {:error, :letra_invalida}
-
+    cond do
+      not ronda_abierta?(ronda) -> {:error, :ronda_cerrada}
+      letra not in @letras -> {:error, :letra_invalida}
+      Map.has_key?(ronda.respuestas, jugador) -> {:error, :ya_respondio}
+      true -> {:ok, letra}
+    end
   end
 
   defp ronda_abierta?(%{abierta: true}), do: true
   defp ronda_abierta?(_), do: false
 
-  defp normalizar_letra(letra) when is binary(letra), do: letra |> String.trim() |> String.upcase()
+  defp normalizar_letra(letra) when is_binary(letra), do: letra |> String.trim() |> String.upcase()
   defp normalizar_letra(_), do: nil
 
-  # -------------API de partida -----------------
+  # ------------- API de partida -----------------
 
-  def start_link(jugadores) do:
-  GenServer.start_link(__MODULE__, jugadores)
-  def add_bot(partida, nombre, dificultad, nivel) do:
-  GenServer.call(partida, {:add_bot, nombre, dificultad, nivel})
-  def start_game(partida) do: GenServer.call(partida, :start_game)
-  def answer (partida, jugador, letra) do: GenServer.call(partida, {:answer, jugador, letra})
-  def leave(partida, jugador) do: GenServer.call(partida, {:leave, jugador})
-  def estado(partida) do: GenServer.call(partida, :estado)
-  def puntajes(partida) do: GenServer.call(partida, :puntajes)
-  def preguntas(partida) do: GenServer.call(partida, :preguntas)
-  def ronda(partida) do: GenServer.call(partida, :ronda)
-  def notificar_jugadores(partida, mensaje) do: GenServer.cast(partida, {:notificar, mensaje})
-  def finalizar(partida) do: GenServer.cast(partida, :finalizar)
-  def reiniciar(partida) do: GenServer.cast(partida, :reiniciar)
+  def start_link(args), do: GenServer.start_link(__MODULE__, args)
+  def add_bot(partida, dificultad), do: GenServer.call(partida, {:add_bot, dificultad})
+  def start_game(partida), do: GenServer.call(partida, :start_game)
+  def answer(partida, jugador, letra), do: GenServer.call(partida, {:answer, jugador, letra})
+  # bot.exs llama a responder/3: es el mismo camino que usa un humano
+  def responder(partida, jugador, letra), do: answer(partida, jugador, letra)
+  def leave(partida, jugador), do: GenServer.call(partida, {:leave, jugador})
+  def estado(partida), do: GenServer.call(partida, :estado)
 
-end
-
-  # ------------Callbaks de GenServer -----------------
+  # ------------ Callbacks de GenServer -----------------
 
   @impl true
-  def init(jugadores) do
-    # inicializa la partida con los jugadores y bots
-    # crea un mapa de puntajes y destinos para cada jugador
-    creador = List.first(jugadores)
-    tema = nil
-    puntajes = Map.new(jugadores, fn jugador -> {jugador, 0} end)
-    destinos = Map.new(jugadores, fn jugador -> {jugador, self()} end)
-    bots = %{}
+  def init(args) do
+    creador = Map.fetch!(args, :creador)
+    cliente = Map.fetch!(args, :cliente)
 
-    {:ok,
-     %__MODULE__{
-       id: :erlang.unique_integer([:positive]),
-       jugadores: jugadores,
-       puntajes: puntajes,
-       creador: creador,
-       destinos: destinos,
-       bots: bots
-     }}
+    # Si el cliente se cae, llega un mensaje :DOWN y se aplica la regla de abandono
+    Process.monitor(cliente)
+
+    state = %__MODULE__{
+      id: Map.fetch!(args, :id),
+      creador: creador,
+      tema: Map.fetch!(args, :tema),
+      nivel: Map.fetch!(args, :nivel),
+      total_preguntas: Map.fetch!(args, :total_preguntas),
+      tiempo_pregunta: Map.fetch!(args, :tiempo_pregunta),
+      cliente: cliente,
+      jugadores: [creador],
+      destinos: %{creador => cliente},
+      puntajes: %{creador => 0},
+      sorteo: Map.get(args, :sorteo, &Trivia.BancoPreguntas.sortear/3),
+      registrar: Map.get(args, :registrar, &Trivia.Persistencia.registrar_resultado/1),
+      gestor: Map.get(args, :gestor, Trivia.GestorPartidas),
+      pausa_ms: Map.get(args, :pausa_ms, @pausa_ms)
+    }
+
+    # Con cast, no con call: el gestor está esperando al supervisor y se bloquearía
+    if state.gestor, do: GenServer.cast(state.gestor, {:partida_lista, state.id, self()})
+
+    {:ok, state}
   end
 
+  @impl true
+  def handle_call({:add_bot, dificultad}, _from, state) do
+    cond do
+      state.estado != :esperando ->
+        {:reply, {:error, :partida_iniciada}, state}
 
+      length(state.jugadores) >= @max_jugadores ->
+        {:reply, {:error, :partida_llena}, state}
+
+      dificultad not in [:facil, :medio, :dificil] ->
+        {:reply, {:error, :dificultad_invalida}, state}
+
+      true ->
+        nombre = "bot_#{map_size(state.bots) + 1}"
+
+        # start_link enlaza el bot a la partida: si ella muere, el bot muere con ella
+        {:ok, pid} =
+          Trivia.Bot.start_link(%{
+            nombre: nombre,
+            dificultad: dificultad,
+            nivel: state.nivel,
+            tiempo_pregunta: state.tiempo_pregunta,
+            partida: self()
+          })
+
+        state = %{
+          state
+          | jugadores: state.jugadores ++ [nombre],
+            destinos: Map.put(state.destinos, nombre, pid),
+            bots: Map.put(state.bots, nombre, pid),
+            puntajes: Map.put(state.puntajes, nombre, 0)
+        }
+
+        {:reply, {:ok, nombre}, state}
+    end
+  end
+
+  def handle_call(:estado, _from, state), do: {:reply, state, state}
+end
