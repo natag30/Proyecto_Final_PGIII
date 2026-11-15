@@ -126,6 +126,7 @@ defmodule Trivia.GestorJugadoresTest do
   describe "conectar/3, desconectar/1 y usuario_de/1" do
     setup do
       original = File.read("data/users.json")
+      File.rm("data/users.json")
 
       start_supervised!(Trivia.Persistencia)
       start_supervised!(GestorJugadores)
