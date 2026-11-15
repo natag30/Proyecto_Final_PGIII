@@ -1,3 +1,5 @@
+# Autora: Natalia García
+
 defmodule Trivia.GestorJugadoresTest do
   use ExUnit.Case
 
