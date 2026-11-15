@@ -10,18 +10,23 @@ defmodule Trivia.PartidaTest do
     respuesta: "A"
   }
 
-  setup do
+  setup context do
+    total_preguntas = Map.get(context, :total_preguntas, 1)
+
     argumentos = %{
       id: "P-test",
       creador: "carlos",
       tema: "ciencia",
       nivel: :basico,
-      total_preguntas: 1,
+      total_preguntas: total_preguntas,
       tiempo_pregunta: 30,
       cliente: self(),
       gestor: nil,
-      sorteo: fn _tema, _nivel, _total -> {:ok, [@pregunta]} end,
+      sorteo: fn _tema, _nivel, _total ->
+        {:ok, List.duplicate(@pregunta, total_preguntas)}
+      end,
       registrar: fn _resultado -> :ok end,
+      pausa_ms: 0,
       tiempo_max_partida_ms: 60_000
     }
 
@@ -39,6 +44,53 @@ defmodule Trivia.PartidaTest do
     end)
 
     {:ok, partida: partida}
+  end
+
+  test "calcula el puntaje de ronda por resultado, nivel y tiempo" do
+    assert Trivia.Partida.puntos_ronda(:correcto, :basico, 30, 30) == 15
+    assert Trivia.Partida.puntos_ronda(:correcto, :intermedio, 15, 30) == 17
+    assert Trivia.Partida.puntos_ronda(:incorrecto, :avanzado, 30, 30) == -10
+    assert Trivia.Partida.puntos_ronda(:sin_responder, :basico, 30, 30) == 0
+    assert Trivia.Partida.bonificacion(-1, 30) == 0
+    assert Trivia.Partida.bonificacion(40, 30) == 5
+  end
+
+  @tag total_preguntas: 2
+  test "acumula el puntaje de cada ronda por jugador", %{partida: partida} do
+    assert {:ok, "bot_1"} = Trivia.Partida.add_bot(partida, :facil)
+    assert {:ok, "bot_2"} = Trivia.Partida.add_bot(partida, :medio)
+    assert :ok = Trivia.Partida.start_game(partida)
+
+    assert_receive {:pregunta, %{numero: 1}}, 1_000
+    assert {:ok, :registrada} = Trivia.Partida.answer(partida, "carlos", "A")
+    assert {:ok, :registrada} = Trivia.Partida.answer(partida, "bot_1", "B")
+    assert {:ok, :registrada} = Trivia.Partida.answer(partida, "bot_2", "B")
+
+    assert_receive {:cierre_ronda, primera}, 1_000
+    assert primera.puntos_ronda["carlos"] in 10..15
+    assert primera.puntos_ronda["bot_1"] == -5
+    assert primera.puntos_ronda["bot_2"] == -5
+    assert Trivia.Partida.puntajes(partida) == primera.totales
+
+    assert_receive {:pregunta, %{numero: 2}}, 1_000
+    assert {:ok, :registrada} = Trivia.Partida.answer(partida, "carlos", "A")
+    assert {:ok, :registrada} = Trivia.Partida.answer(partida, "bot_1", "B")
+    assert {:ok, :registrada} = Trivia.Partida.answer(partida, "bot_2", "A")
+
+    assert_receive {:cierre_ronda, segunda}, 1_000
+    assert segunda.puntos_ronda["carlos"] in 10..15
+    assert segunda.puntos_ronda["bot_1"] == -5
+    assert segunda.puntos_ronda["bot_2"] in 10..15
+
+    assert segunda.totales["carlos"] ==
+             primera.puntos_ronda["carlos"] + segunda.puntos_ronda["carlos"]
+
+    totales_finales = Trivia.Partida.puntajes(partida)
+    assert totales_finales["carlos"] == segunda.totales["carlos"]
+    assert totales_finales["bot_1"] == -10
+
+    assert totales_finales["bot_2"] ==
+             primera.puntos_ronda["bot_2"] + segunda.puntos_ronda["bot_2"]
   end
 
   test "agrega un bot cuando hay espacio", %{partida: partida} do
